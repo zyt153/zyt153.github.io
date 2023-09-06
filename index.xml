@@ -6,7 +6,7 @@
     <description>Recent content on Jane - A super concise theme for Hugo</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 15 Oct 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 03 Sep 2023 22:20:27 +0800</lastBuildDate>
     
         <atom:link href="https://zyt153.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -284,6 +284,48 @@ $$&lt;/p&gt;
 &lt;li&gt;&lt;a href=&#34;https://github.com/spf13/cast&#34;&gt;Cast&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Learn more and contribute on &lt;a href=&#34;https://github.com/gohugoio&#34;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>对象存储vs文件存储</title>
+      <link>https://zyt153.github.io/post/object_storage_vs_file_storage/</link>
+      <pubDate>Sun, 03 Sep 2023 22:20:27 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/object_storage_vs_file_storage/</guid>
+      
+        <description>&lt;p&gt;对象存储（Object Storage）出现在90年代中期，作为一种比较新的存储方式，本文将比较它和传统的存储系统，如块存储（Block Storage）和文件存储（File Storage），之间的区别。&lt;/p&gt;
+&lt;h2 id=&#34;文件存储-file-storage&#34;&gt;文件存储 (File Storage)&lt;/h2&gt;
+&lt;p&gt;文件存储出现的时间显然比对象存储更早，也是大多数人熟悉的存储方式。你可以将文件放到文件夹中，还可以将它们嵌套在更多文件夹下，形成指定路径。通过这种方式，文件被组织成具有目录和子目录的层次结构，每个文件还有一组有限的相关metadata，例如文件名、文件大小、创建日期、上次修改日期等等。&lt;/p&gt;
+&lt;p&gt;文件系统较小时该存储方式可以良好地运行。然而一旦数据开始增长，检索信息就会变得十分困难，尤其是当没有一个规范的文件命名标准时。同时，由于文件具有唯一的地址，因此在一个服务器中可以存储的文件数量是有限的。另外，用户往往使network attached storage (NAS)来共享文件，这十分适合本地共享，但在网络上共享文件时可能导致问题。&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;总结下来，文件存储有三个局限性：&lt;/em&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;em&gt;大数据量时不易检索&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;存储数量有限，不方便扩容&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;不适合网络共享&lt;/em&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;对象存储-object-storage&#34;&gt;对象存储 (Object Storage)&lt;/h2&gt;
+&lt;p&gt;对象存储将数据本身与metadata和unique identifier绑定在一起。其中metadata是定制化的，这意味着你可以为每个存储对象创建更多可识别信息。这些对象存储在平铺的地址空间中，这使得跨区域定位和检索数据变得更加容易。这种平铺的地址空间也有助于容量扩展，只需要添加另外的存储节点，就可以实现PB甚至更高级别的存储。&lt;/p&gt;
+&lt;h2 id=&#34;文件存储和对象存储的区别&#34;&gt;文件存储和对象存储的区别&lt;/h2&gt;
+
+&lt;link rel=&#34;stylesheet&#34; href=&#34;https://zyt153.github.io/css/hugo-easy-gallery.css&#34; /&gt;
+&lt;div class=&#34;box&#34;&gt;
+&lt;figure  itemprop=&#34;associatedMedia&#34;
+  itemscope itemtype=&#34;http://schema.org/ImageObject&#34; &gt;
+    &lt;div class=&#34;img&#34;&gt;
+      &lt;img itemprop=&#34;thumbnail&#34; src=&#34;https://zyt153.github.io/image/object-storage-vs-file-storage.jpg&#34; /&gt;
+    &lt;/div&gt;
+    &lt;a href=&#34;https://zyt153.github.io/image/object-storage-vs-file-storage.jpg&#34; itemprop=&#34;contentUrl&#34;&gt;&lt;/a&gt;
+  &lt;/figure&gt;
+&lt;/div&gt;
+
+&lt;p&gt;现在我们知道了对象存储和文件存储的基本知识，现在来比较它们的关键不同。&lt;/p&gt;
+&lt;p&gt;首先，对象存储克服了文件存储面临的许多限制。如果将文件存储视为仓库，当你第一次把一盒文件放在那里时，看起来你还有足够的空间。但随着数据需求的增长，你会在不知不觉中将仓库装满。而对象存储就像一个没有屋顶的仓库，你可以不受限制地添加数据。&lt;/p&gt;
+&lt;p&gt;在检索较小或单个文件时，文件存储的性能非常出色，尤其是在文件数量相对较少的情况下。然而，一旦数据开始增长，你可能会想知道，“我如何找到我需要的文件？”。在这种情况下，你可以将对象存储视为代客泊车（原文是valet parking），而文件存储更像是自助泊车（self-parking）。当你将车停进一个小停车场时，你可以确切地知道车的位置。然而，如果这个停车场大一千倍，找到你的车就变得十分困难。由于对象存储具有可定制的metadata，并且所有对象都位于平面地址空间中，因此这类似于将钥匙交给代客。你的车将被存储在某个地方（在这种情况下，它甚至可能在另一个国家），当你需要它时，代客泊车将为您取车，虽然取回汽车可能需要更长的时间，但你不必担心四处寻找它。&lt;/p&gt;
+&lt;p&gt;我们可以举一个现实生活中的例子来说明为什么对象存储会有这样的优势。一个X射线&lt;strong&gt;文件&lt;/strong&gt;只能绑定有限的metadata，例如创建日期、所有者、位置和大小；但一个X射线&lt;strong&gt;对象&lt;/strong&gt;可以在文件原有的metadata的基础上，绑定任意数量的metadata，例如患者姓名、出生日期、受伤详细信息、身体的哪个区域进行了X射线检查等。这对于医生快速提取相关信息非常有用。&lt;/p&gt;
+&lt;p&gt;这是一个关于对象存储与文件存储之间差异的简要概括。文件存储有其用途，但企业已开始用对象存储代替文件存储，以满足其非结构化数据存储需求。&lt;/p&gt;
+&lt;p&gt;Original: &lt;a href=&#34;https://data.cloudian.com/l/677273/2019-01-08/2m8/677273/729/Cloudian_Object_v_File_Storage.pdf&#34;&gt;Cloudian_Object_v_File_Storage&lt;/a&gt;&lt;/p&gt;
 </description>
       
     </item>
@@ -1930,18 +1972,6 @@ $ vi themes/zafta/layouts/_default/single.html
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Note that we removed the date logic from the default template and put it in the post template. Generate the web site and verify the results. Posts have dates and the about page doesn&amp;rsquo;t.&lt;/p&gt;
 &lt;h3 id=&#34;dont-repeat-yourself&#34;&gt;Don&amp;rsquo;t Repeat Yourself&lt;/h3&gt;
 &lt;p&gt;DRY is a good design goal and Hugo does a great job supporting it. Part of the art of a good template is knowing when to add a new template and when to update an existing one. While you&amp;rsquo;re figuring that out, accept that you&amp;rsquo;ll be doing some refactoring. Hugo makes that easy and fast, so it&amp;rsquo;s okay to delay splitting up a template.&lt;/p&gt;</description>
-      
-    </item>
-    
-    <item>
-      <title>This is a very long title This is a very long title This is a very long title This is a very long title This is a very long title</title>
-      <link>https://zyt153.github.io/post/other/this-is-a-very-long-title/</link>
-      <pubDate>Wed, 30 Aug 2017 15:43:48 +0800</pubDate>
-      
-      <guid>https://zyt153.github.io/post/other/this-is-a-very-long-title/</guid>
-      
-        <description>&lt;p&gt;This is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long titleThis is a very long title&lt;/p&gt;
-</description>
       
     </item>
     
