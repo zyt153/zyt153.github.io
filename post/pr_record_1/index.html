@@ -76,7 +76,7 @@
 <meta itemprop="name" content="一次漫长的customer case问题定位">
 <meta itemprop="description" content="在去年九月份，我接到了入职以来第一个PR (Problem Report?)，来自🇦🇺的一个cloud service provider。当时没什么经验的我看着这个custo"><meta itemprop="datePublished" content="2023-09-17T11:36:59+08:00" />
 <meta itemprop="dateModified" content="2023-09-17T11:36:59+08:00" />
-<meta itemprop="wordCount" content="3681">
+<meta itemprop="wordCount" content="3665">
 <meta itemprop="keywords" content="technology,pr," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="一次漫长的customer case问题定位"/>
 <meta name="twitter:description" content="在去年九月份，我接到了入职以来第一个PR (Problem Report?)，来自🇦🇺的一个cloud service provider。当时没什么经验的我看着这个custo"/>
@@ -345,7 +345,7 @@
 
   <div class="post-meta__right">
     <span class="post-meta-more">
-        3681 words -
+        3665 words -
         8 min read
       </span>
 
@@ -474,9 +474,9 @@
 </span></span><span style="display:flex;"><span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deleteByAAA</span><span style="color:#f92672">(</span>String aaa<span style="color:#f92672">);</span>
 </span></span></code></pre></div><p>这里JOB1用来定时清空一些数据库中无用的数据，数据库靠Hibernate JPA连接。和客户求证后发现，他们在进行这个操作时需要删除上千万行记录，直接使用Hibernate方法会使得这些记录先load到内存中，导致OOM。</p>
 <p>这个发现看起来十分符合逻辑，于是参考<a href="https://stackoverflow.com/questions/24785439/deleting-1-millions-rows-in-sql-server">Deleting 1 millions rows in SQL Server</a>以及<a href="https://www.baeldung.com/delete-with-hibernate">Deleting Objects with Hibernate</a>提出了几种优化方案：</p>
-<p>**方案1：**先<code>select count(*)</code>计算要被删除的数据数量，一旦超过某个量级就分批删除</p>
-<p>**方案2：**使用Native Query删除</p>
-<p>**方案3：**设置一个delete标志位，暂时不会真正将数据删除，只是查询的时候忽略，等系统空闲时再逐步删除</p>
+<p><strong>方案1:</strong> 先<code>select count(*)</code>计算要被删除的数据数量，一旦超过某个量级就分批删除</p>
+<p><strong>方案2:</strong> 使用Native Query删除</p>
+<p><strong>方案3:</strong> 设置一个delete标志位，暂时不会真正将数据删除，只是查询的时候忽略，等系统空闲时再逐步删除</p>
 <p>因为方案2的改动最小，所以从方案2开始验证。于是我将原来的方法改为了Native Query：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#a6e22e">@Transactional</span><span style="color:#f92672">(</span>isolation <span style="color:#f92672">=</span> Isolation<span style="color:#f92672">.</span><span style="color:#a6e22e">READ_COMMITTED</span><span style="color:#f92672">)</span>
 </span></span><span style="display:flex;"><span><span style="color:#a6e22e">@Modifying</span><span style="color:#f92672">(</span>flushAutomatically <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">,</span> clearAutomatically <span style="color:#f92672">=</span> <span style="color:#66d9ef">true</span><span style="color:#f92672">)</span>
@@ -507,7 +507,7 @@
   </figure>
 </div>
 
-<p>对于第一张图，在我手动结束应用进程前，heap占用不断增大的状况并没有停止。而Native Query的delete操作并没有带来明显的内存消耗，在等待了两分钟左右后我进行数据库查询，发现这一千万条数据已经被删掉了。**这说明大规模的delete操作确实很可能是造成OOM、进而导致Quartz崩溃的根源，而Native Query可以改善这一问题。**至于服务重启失败，我认为很有可能和数据库“失联”有关。</p>
+<p>对于第一张图，在我手动结束应用进程前，heap占用不断增大的状况并没有停止。而Native Query的delete操作并没有带来明显的内存消耗，在等待了两分钟左右后我进行数据库查询，发现这一千万条数据已经被删掉了。这说明<strong>大规模的delete操作确实很可能是造成OOM、进而导致Quartz崩溃的根源，而Native Query可以改善这一问题</strong>。至于服务重启失败，我认为很有可能和数据库“失联”有关。</p>
 <p>目前已经将hot fix提交给客户，希望这能帮他们从根本上解决问题。&hellip;&hellip;please</p>
 
         </div>

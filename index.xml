@@ -138,9 +138,9 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;deleteByAAA&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;String aaa&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里JOB1用来定时清空一些数据库中无用的数据，数据库靠Hibernate JPA连接。和客户求证后发现，他们在进行这个操作时需要删除上千万行记录，直接使用Hibernate方法会使得这些记录先load到内存中，导致OOM。&lt;/p&gt;
 &lt;p&gt;这个发现看起来十分符合逻辑，于是参考&lt;a href=&#34;https://stackoverflow.com/questions/24785439/deleting-1-millions-rows-in-sql-server&#34;&gt;Deleting 1 millions rows in SQL Server&lt;/a&gt;以及&lt;a href=&#34;https://www.baeldung.com/delete-with-hibernate&#34;&gt;Deleting Objects with Hibernate&lt;/a&gt;提出了几种优化方案：&lt;/p&gt;
-&lt;p&gt;**方案1：**先&lt;code&gt;select count(*)&lt;/code&gt;计算要被删除的数据数量，一旦超过某个量级就分批删除&lt;/p&gt;
-&lt;p&gt;**方案2：**使用Native Query删除&lt;/p&gt;
-&lt;p&gt;**方案3：**设置一个delete标志位，暂时不会真正将数据删除，只是查询的时候忽略，等系统空闲时再逐步删除&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方案1:&lt;/strong&gt; 先&lt;code&gt;select count(*)&lt;/code&gt;计算要被删除的数据数量，一旦超过某个量级就分批删除&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方案2:&lt;/strong&gt; 使用Native Query删除&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方案3:&lt;/strong&gt; 设置一个delete标志位，暂时不会真正将数据删除，只是查询的时候忽略，等系统空闲时再逐步删除&lt;/p&gt;
 &lt;p&gt;因为方案2的改动最小，所以从方案2开始验证。于是我将原来的方法改为了Native Query：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@Transactional&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;isolation &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Isolation&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;READ_COMMITTED&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@Modifying&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;flushAutomatically &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; clearAutomatically &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
@@ -171,7 +171,7 @@
   &lt;/figure&gt;
 &lt;/div&gt;
 
-&lt;p&gt;对于第一张图，在我手动结束应用进程前，heap占用不断增大的状况并没有停止。而Native Query的delete操作并没有带来明显的内存消耗，在等待了两分钟左右后我进行数据库查询，发现这一千万条数据已经被删掉了。**这说明大规模的delete操作确实很可能是造成OOM、进而导致Quartz崩溃的根源，而Native Query可以改善这一问题。**至于服务重启失败，我认为很有可能和数据库“失联”有关。&lt;/p&gt;
+&lt;p&gt;对于第一张图，在我手动结束应用进程前，heap占用不断增大的状况并没有停止。而Native Query的delete操作并没有带来明显的内存消耗，在等待了两分钟左右后我进行数据库查询，发现这一千万条数据已经被删掉了。这说明&lt;strong&gt;大规模的delete操作确实很可能是造成OOM、进而导致Quartz崩溃的根源，而Native Query可以改善这一问题&lt;/strong&gt;。至于服务重启失败，我认为很有可能和数据库“失联”有关。&lt;/p&gt;
 &lt;p&gt;目前已经将hot fix提交给客户，希望这能帮他们从根本上解决问题。&amp;hellip;&amp;hellip;please&lt;/p&gt;
 </description>
       
