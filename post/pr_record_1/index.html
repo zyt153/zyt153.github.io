@@ -76,7 +76,7 @@
 <meta itemprop="name" content="一次漫长的customer case问题定位">
 <meta itemprop="description" content="在去年九月份，我接到了入职以来第一个PR (Problem Report?)，来自🇦🇺的一个cloud service provider。当时没什么经验的我看着这个custo"><meta itemprop="datePublished" content="2023-09-17T11:36:59+08:00" />
 <meta itemprop="dateModified" content="2023-09-17T11:36:59+08:00" />
-<meta itemprop="wordCount" content="3647">
+<meta itemprop="wordCount" content="3681">
 <meta itemprop="keywords" content="technology,pr," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="一次漫长的customer case问题定位"/>
 <meta name="twitter:description" content="在去年九月份，我接到了入职以来第一个PR (Problem Report?)，来自🇦🇺的一个cloud service provider。当时没什么经验的我看着这个custo"/>
@@ -345,7 +345,7 @@
 
   <div class="post-meta__right">
     <span class="post-meta-more">
-        3647 words -
+        3681 words -
         8 min read
       </span>
 
@@ -507,8 +507,8 @@
   </figure>
 </div>
 
-<p>对于第一张图，在我手动结束应用进程前，heap占用不断增大的状况并没有停止。而Native Query的delete操作并没有带来明显的内存消耗，在等待了两分钟左右后我进行数据库查询，发现这一千万条数据已经被删掉了。<strong>这说明大规模的delete操作确实很可能是造成OOM、进而导致Quartz崩溃的根源，而Native Query可以改善这一问题。</strong></p>
-<p>目前已经将修复版提交给客户，希望这能帮他们从根本上解决问题。&hellip;&hellip;please</p>
+<p>对于第一张图，在我手动结束应用进程前，heap占用不断增大的状况并没有停止。而Native Query的delete操作并没有带来明显的内存消耗，在等待了两分钟左右后我进行数据库查询，发现这一千万条数据已经被删掉了。**这说明大规模的delete操作确实很可能是造成OOM、进而导致Quartz崩溃的根源，而Native Query可以改善这一问题。**至于服务重启失败，我认为很有可能和数据库“失联”有关。</p>
+<p>目前已经将hot fix提交给客户，希望这能帮他们从根本上解决问题。&hellip;&hellip;please</p>
 
         </div>
 
