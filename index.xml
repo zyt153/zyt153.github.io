@@ -6,7 +6,7 @@
     <description>Recent content on Big Wilte Cat&#39;s Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 03 Sep 2023 22:20:27 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 17 Sep 2023 11:36:59 +0800</lastBuildDate>
     
         <atom:link href="https://zyt153.github.io/index.xml" rel="self" type="application/rss+xml" />
     
@@ -19,6 +19,173 @@
       <guid>https://zyt153.github.io/about/</guid>
       
         <description>&lt;p&gt;Hey! This is Big White Cat!&lt;/p&gt;
+&lt;p&gt;Graduated from Beijing University of Posts and Telecommunications (Master) &amp;amp; Beijing Jiaotong University (Bachelor).&lt;/p&gt;
+&lt;p&gt;Now working at VMware.&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>一次漫长的customer case问题定位</title>
+      <link>https://zyt153.github.io/post/pr_record_1/</link>
+      <pubDate>Sun, 17 Sep 2023 11:36:59 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/pr_record_1/</guid>
+      
+        <description>&lt;p&gt;在去年九月份，我接到了入职以来第一个PR (Problem Report?)，来自🇦🇺的一个cloud service provider。当时没什么经验的我看着这个customer case手足无措，毫无头绪，最终在团队的帮助下给了客户一个凑合的解决方案。如今过去了一年，没想到自己还在和这个客户打交道，依旧是和去年差不多的问题。一年的磨练多少有点进步，写下来记录一下。&lt;/p&gt;
+&lt;h2 id=&#34;round-1&#34;&gt;Round 1&lt;/h2&gt;
+&lt;p&gt;去年九月，客户向我们报了一个看似影响不大却很诡异的问题——每运行一段时间，UI上的一个计数就不再更新，重启之后大概率可以恢复正常。除此之外系统似乎还在正常运行，基本功能也不受影响。这个计数由系统中每分钟执行一次的Quartz job刷新，经过排查发现，不止这个job，客户环境里其他所有的定时任务都处于停滞状态，日志里相关的报错是&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Caused by: java.lang.NoClassDefFoundError: Could not initialize class org.postgresql.util.GT
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;还有一些&lt;code&gt;OutOfMemory&lt;/code&gt;。&lt;/p&gt;
+&lt;p&gt;参考&lt;a href=&#34;https://stackoverflow.com/questions/53637617/postgres-caused-by-java-lang-noclassdeffounderror-could-not-initialize-class-o&#34;&gt;stackoverflow/questions/53637617&lt;/a&gt;等，我们很快把这两者联系起来。基本可以判定是系统某时刻内存溢出，导致Quartz job崩溃。为了验证这个观点，我们做了两件事：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;找客户要了Quartz相关的table dump——然而并没有什么发现，qrtz_triggers等几个表里的数据看起来没什么异样，没有积攒的misfired job。但事实就是所有的定时任务都不再被触发。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在我们本地的环境进行了验证：
+写一个专门用来触发内存溢出的定时任务，例如&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; org.quartz.*&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; org.slf4j.Logger&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; org.slf4j.LoggerFactory&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; org.springframework.stereotype.Component&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; java.util.ArrayList&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; java.util.List&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@PersistJobDataAfterExecution&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@Component&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;TestJob&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;implements&lt;/span&gt; Job &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;static&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;final&lt;/span&gt; Logger logger &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; LoggerFactory&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;getLogger&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;BucketMetricsJob&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;class&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;subscribe&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;()&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;logger&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;isDebugEnabled&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;())&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            logger&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;debug&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Starting create OutOfMemoryError.&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;@Override&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;public&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;execute&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;JobExecutionContext context&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;throws&lt;/span&gt; JobExecutionException &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        List&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[]&amp;gt;&lt;/span&gt; list &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ArrayList&lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&amp;gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; 0&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt; i &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;&lt;/span&gt; 1000&lt;span style=&#34;color:#f92672&#34;&gt;;&lt;/span&gt; i&lt;span style=&#34;color:#f92672&#34;&gt;++)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            list&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;add&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;[&lt;/span&gt;1024 &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; 1024&lt;span style=&#34;color:#f92672&#34;&gt;]);&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// add a 1M object each time in the loop
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;然后把java vm的内存设小一些：&lt;code&gt;-Xms100m -Xmx120m&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;运行之后在VisualVM（或者其他java内存工具）中可以看到类似这样的java heap：&lt;/p&gt;
+&lt;p&gt;
+   &lt;link rel=&#34;stylesheet&#34; href=&#34;https://zyt153.github.io/css/hugo-easy-gallery.css&#34; /&gt;
+   &lt;div class=&#34;box&#34;&gt;
+   &lt;figure  itemprop=&#34;associatedMedia&#34;
+     itemscope itemtype=&#34;http://schema.org/ImageObject&#34; &gt;
+       &lt;div class=&#34;img&#34;&gt;
+         &lt;img itemprop=&#34;thumbnail&#34; src=&#34;https://zyt153.github.io/image/java-heap.png&#34; /&gt;
+       &lt;/div&gt;
+       &lt;a href=&#34;https://zyt153.github.io/image/java-heap.png&#34; itemprop=&#34;contentUrl&#34;&gt;&lt;/a&gt;
+     &lt;/figure&gt;
+   &lt;/div&gt;
+
+测试下来在内存溢出后，Quartz确实全线崩溃，但其他线程并没有受到影响，而Quartz并没有记录misfired job，在一段时间后也没有自动恢复，和客户报的现象基本一致。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;大概找到问题之后，就开始想解决方案。讨论了很多，试了很多，也排除了很多：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方案1 (未采用):&lt;/strong&gt; 给每个定时任务设置超时时间，一旦超过某个时间还没完成，就停止该任务。
+事实是受系统环境影响，不同客户环境、不同任务的执行时间可能会非常不同。也许一个任务会执行很久，无法根据经验判断“超时”的阈值。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方案2 (未采用):&lt;/strong&gt; 在每个任务里启用heart beat，一旦发现某个定时任务线程被block住，就结束该线程。
+这是组里几个大佬都提议的做法，听起来合情合理，但我试下来也存在一些困难（也可能是因为我菜）。首先我很难在一个定时任务线程里启用heart beat，是任务执行过程中需要经常中断以发送heart beat信号？或许是再启用一个子线程？更大的困难在于，java中对于线程的&lt;code&gt;stop()&lt;/code&gt;方法已弃用（弃用的理由十分合理，参考&lt;a href=&#34;https://docs.oracle.com/javase/1.5.0/docs/guide/misc/threadPrimitiveDeprecation.html&#34;&gt;《Why are Thread.stop, Thread.suspend and Thread.resume Deprecated?》&lt;/a&gt;），如果想停止线程只能用&lt;code&gt;interrupt()&lt;/code&gt;标记中断。但如果这个线程已经被block了，它又怎么去监控这个interrupt标志位呢？&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;方案3 (最终):&lt;/strong&gt; 在2的基础上，最终采用的方案依旧是增强Quartz的监控功能，大致来说分为两方面。第一是增加&lt;code&gt;JobListener&lt;/code&gt;，在我们的日志里将记录每次job开始、结束、下一次触发的时间，同时在job结束时，会记录这个job处理的总时长和当前的java heap大小。这个改动本质上对解决问题没有任何帮助，只是帮助我们更好地分析问题。第二个改动是在job中catch异常（&lt;code&gt;NoClassDefFoundError&lt;/code&gt;和&lt;code&gt;OutOfMemoryError&lt;/code&gt;），一旦发现内存溢出，就触发异常处理程序：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;private&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;scheduleExceptionHandler&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;JobExecutionContext context&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; Error e&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;try&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            logger&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;error&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Job execution failed. &amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; e&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            Scheduler scheduler &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; context&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;getScheduler&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            scheduler&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;standby&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            logger&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;debug&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;Call for garbage collection.&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            System&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;gc&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            scheduler&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;start&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;();&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;catch&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;SchedulerException schedulerException&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#66d9ef&#34;&gt;throw&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;new&lt;/span&gt; ForbiddenException&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;RELOAD_SCHEDULER_FAILED&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; schedulerException&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;getMessage&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;());&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;也就是说先让这个线程standby，然后让系统做gc，然后再恢复。&lt;/p&gt;
+&lt;p&gt;这是方案甚至不能让我自己满意，也为后续埋了雷。具体来讲：1. 我们没有找到导致OOM的原因，也许是定时任务里的OOM，也或许是其他线程里的，单纯catch定时任务里的OOM异常并不能从根本上解决问题。 2. &lt;code&gt;System.gc()&lt;/code&gt;的行为是否有效十分存疑，我对java垃圾回收了解不多，但隐约觉得单纯调这个命令不能解决问题，按理说一旦出现内存溢出，java应该自己就会进行垃圾回收，但很显然在我们的case里垃圾回收并没有使系统恢复正常。&lt;/p&gt;
+&lt;p&gt;但这个方案最终还是被当作解决方案给了客户，客户在安装这个hot fix之后在一段时间内也确实没有再来给我们报bug。虽然我认为没有找到根本原因，但也实在不想再处理这个PR了。&lt;/p&gt;
+&lt;h2 id=&#34;round-2&#34;&gt;Round 2&lt;/h2&gt;
+&lt;p&gt;客户再次找到我们是在今年二月，这次的PR并不是我处理的，因此简单记录一下我了解的情况。&lt;/p&gt;
+&lt;p&gt;这次客户报的问题是某些时刻CPU使用率意外地高，导致服务无法处理其他请求，同样地，重启可以解决这一问题。从他们的日志里可以看到吞吐量并不高，有Quartz job偶尔的OOM报错，但CPU利用率高得不正常。最终，我们组的资深后端将问题定位到某段逻辑的递归调用上，客户操作导致的递归调用层数比我们预想的多很多，因此导致CPU高使用率。&lt;/p&gt;
+&lt;p&gt;按这个优化思路，我们再次给客户提供了hot fix，客户使用后也没再找我们。日志里的OOM问题被认为是和CPU使用率高相关的，因此没再受关注。&lt;/p&gt;
+&lt;h2 id=&#34;round-3&#34;&gt;Round 3&lt;/h2&gt;
+&lt;p&gt;七月中旬，这个倒霉的客户又来了。带来的是同样的问题：UI上的计数不更新。但很遗憾，这次他们在重启时也偶尔失败，java在打印出SPRING这个标之后就卡住了，日志里对于启动失败没有任何报错。老问题没解决，而且有越来越影响使用的趋势，我开始感到惭愧并同情这个客户了🫠。&lt;/p&gt;
+&lt;p&gt;有了之前的经验，这次我直奔Quartz相关的日志，果然又是内存溢出导致任务不执行。此外，在成功的重启后，可以看到系统触发了一些一个月前的misfired job——也就是说在内存溢出后系统根本没有靠垃圾回收恢复正常。这次我参考&lt;a href=&#34;https://stackoverflow.com/questions/618265/quartz-scheduler-suddenly-stop-running-and-no-exception-error&#34;&gt;stackoverflow/questions/618265&lt;/a&gt;尝试找客户要thread dump、heap dump和postgres dump：&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Please execute the following commands to generate a thread dump and heap dump for application:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;a) Run &lt;code&gt;jps&lt;/code&gt; and find the PID of Application:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;​       &lt;em&gt;&lt;code&gt;jps&lt;/code&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;b) Thread dump:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;code&gt;jstack -l {PID} &amp;gt; {file_path_in_txt}&lt;/code&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;For example: &lt;code&gt;jstack -l 21715 &amp;gt; thread-dump.txt&lt;/code&gt;       // It will generate a txt file in home path.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;c) Heap dump:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;code&gt;jmap -dump:live,file={file_path_in_hprof} {PID}&lt;/code&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;For example: &lt;code&gt;jmap -dump:live,file=heap-dump.hprof 21715&lt;/code&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;If possible, please also provide dumps of the following tables: &lt;code&gt;qrtz_simple_triggers&lt;/code&gt; and &lt;code&gt;qrtz_triggers&lt;/code&gt;. The commands are:&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;code&gt;pg_dump -U {username} {DBname} -t qrtz_simple_triggers &amp;gt; qrtz_simple_triggers-dump.sql&lt;/code&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;&lt;code&gt;pg_dump -U {username} {DBname} -t qrtz_triggers &amp;gt; qrtz_triggers-dump.sql&lt;/code&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;我想这是个很好的思路，能知道是否产生了线程拥堵，以及一段时间内heap的使用情况。然而客户随后反馈说，&lt;code&gt;jps&lt;/code&gt;这个命令没有。。看来是只装了jre没有jdk。于是只要到了Quartz相关的两个表的dump，在其中发现了一些一个月前的misfired job，没什么帮助。&lt;/p&gt;
+&lt;p&gt;但这次的情况稍有不同，客户为了增加稳定性设置了四个服务节点，通过负载均衡器访问。四个节点在一段时间内都出现了内存溢出，也就是说我有四个样本可以参考。在翻日志的时候，我发现四个服务节点关于OOM的报错都指向了同一个定时任务（暂称为&lt;em&gt;JOB1&lt;/em&gt;）。而在进一步追要的日志中，有三个misfired job被触发后没有结束（在日志的时间范围内没有结束），其中就包括了JOB1。继续追查发现JOB1似乎会卡在一个及其平常的地方（四个节点中有两个的报错也指向了这一操作）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;repository&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;deleteByAAA&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;aaa&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;再往里找一层：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;@Transactional&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;isolation &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Isolation&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;READ_COMMITTED&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;deleteByAAA&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;String aaa&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里JOB1用来定时清空一些数据库中无用的数据，数据库靠Hibernate JPA连接。和客户求证后发现，他们在进行这个操作时需要删除上千万行记录，直接使用Hibernate方法会使得这些记录先load到内存中，导致OOM。&lt;/p&gt;
+&lt;p&gt;这个发现看起来十分符合逻辑，于是参考&lt;a href=&#34;https://stackoverflow.com/questions/24785439/deleting-1-millions-rows-in-sql-server&#34;&gt;Deleting 1 millions rows in SQL Server&lt;/a&gt;以及&lt;a href=&#34;https://www.baeldung.com/delete-with-hibernate&#34;&gt;Deleting Objects with Hibernate&lt;/a&gt;提出了几种优化方案：&lt;/p&gt;
+&lt;p&gt;**方案1：**先&lt;code&gt;select count(*)&lt;/code&gt;计算要被删除的数据数量，一旦超过某个量级就分批删除&lt;/p&gt;
+&lt;p&gt;**方案2：**使用Native Query删除&lt;/p&gt;
+&lt;p&gt;**方案3：**设置一个delete标志位，暂时不会真正将数据删除，只是查询的时候忽略，等系统空闲时再逐步删除&lt;/p&gt;
+&lt;p&gt;因为方案2的改动最小，所以从方案2开始验证。于是我将原来的方法改为了Native Query：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-java&#34; data-lang=&#34;java&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@Transactional&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;isolation &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; Isolation&lt;span style=&#34;color:#f92672&#34;&gt;.&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;READ_COMMITTED&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@Modifying&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;flushAutomatically &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; clearAutomatically &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@Query&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;value &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;DELETE FROM table_name WHERE AAA = :aaa&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;,&lt;/span&gt; nativeQuery &lt;span style=&#34;color:#f92672&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;deleteByAAA&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;@Param&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;aaa&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;)&lt;/span&gt; String aaa&lt;span style=&#34;color:#f92672&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;为了验证这个更改是否有效，我向数据库对应的table里插入了10,000,000条记录，触发JOB1，利用VisualVM实时查看heap使用情况。下图分别是原来的实现与改动后在删除一千万条数据时的情况：&lt;/p&gt;
+
+
+&lt;div class=&#34;box&#34;&gt;
+&lt;figure  itemprop=&#34;associatedMedia&#34;
+  itemscope itemtype=&#34;http://schema.org/ImageObject&#34; &gt;
+    &lt;div class=&#34;img&#34;&gt;
+      &lt;img itemprop=&#34;thumbnail&#34; src=&#34;https://zyt153.github.io/image/java-heap-1.png&#34; /&gt;
+    &lt;/div&gt;
+    &lt;a href=&#34;https://zyt153.github.io/image/java-heap-1.png&#34; itemprop=&#34;contentUrl&#34;&gt;&lt;/a&gt;
+  &lt;/figure&gt;
+&lt;/div&gt;
+
+
+
+&lt;div class=&#34;box&#34;&gt;
+&lt;figure  itemprop=&#34;associatedMedia&#34;
+  itemscope itemtype=&#34;http://schema.org/ImageObject&#34; &gt;
+    &lt;div class=&#34;img&#34;&gt;
+      &lt;img itemprop=&#34;thumbnail&#34; src=&#34;https://zyt153.github.io/image/java-heap-2.png&#34; /&gt;
+    &lt;/div&gt;
+    &lt;a href=&#34;https://zyt153.github.io/image/java-heap-2.png&#34; itemprop=&#34;contentUrl&#34;&gt;&lt;/a&gt;
+  &lt;/figure&gt;
+&lt;/div&gt;
+
+&lt;p&gt;对于第一张图，在我手动结束应用进程前，heap占用不断增大的状况并没有停止。而Native Query的delete操作并没有带来明显的内存消耗，在等待了两分钟左右后我进行数据库查询，发现这一千万条数据已经被删掉了。&lt;strong&gt;这说明大规模的delete操作确实很可能是造成OOM、进而导致Quartz崩溃的根源，而Native Query可以改善这一问题。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;目前已经将修复版提交给客户，希望这能帮他们从根本上解决问题。&amp;hellip;&amp;hellip;please&lt;/p&gt;
+</description>
+      
+    </item>
+    
+    <item>
+      <title>对象存储vs块存储</title>
+      <link>https://zyt153.github.io/post/object_storage_vs_block_storage/</link>
+      <pubDate>Thu, 07 Sep 2023 13:13:09 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/object_storage_vs_block_storage/</guid>
+      
+        <description>&lt;h2 id=&#34;什么是块存储&#34;&gt;什么是块存储？&lt;/h2&gt;
+&lt;p&gt;块存储（Block Storage）是最古老、最简单的数字存储形式。在块存储中，数据被存储在固定大小的“块”中，每个block通常只存储完整文件的一部分。应用程序进行SCSI调用来查找block的地址，然后将它们组织起来形成完整的文件。&lt;/p&gt;
 </description>
       
     </item>

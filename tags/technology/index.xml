@@ -6,7 +6,25 @@
     <description>Recent content in technology on Big Wilte Cat&#39;s Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 03 Sep 2023 22:20:27 +0800</lastBuildDate><atom:link href="https://zyt153.github.io/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 17 Sep 2023 11:36:59 +0800</lastBuildDate><atom:link href="https://zyt153.github.io/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一次漫长的customer case问题定位</title>
+      <link>https://zyt153.github.io/post/pr_record_1/</link>
+      <pubDate>Sun, 17 Sep 2023 11:36:59 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/pr_record_1/</guid>
+      <description>在去年九月份，我接到了入职以来第一个PR (Problem Report?)，来自🇦🇺的一个cloud service provider。当时没什么经验的我看着这个custo</description>
+    </item>
+    
+    <item>
+      <title>对象存储vs块存储</title>
+      <link>https://zyt153.github.io/post/object_storage_vs_block_storage/</link>
+      <pubDate>Thu, 07 Sep 2023 13:13:09 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/object_storage_vs_block_storage/</guid>
+      <description>什么是块存储？ 块存储（Block Storage）是最古老、最简单的数字存储形式。在块存储中，数据被存储在固定大小的“块”中，每个block通</description>
+    </item>
+    
     <item>
       <title>对象存储vs文件存储</title>
       <link>https://zyt153.github.io/post/object_storage_vs_file_storage/</link>
