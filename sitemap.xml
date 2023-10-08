@@ -10,77 +10,84 @@
   
   <url>
     <loc>https://zyt153.github.io/</loc>
-    <lastmod>2023-09-17T11:36:59+08:00</lastmod>
+    <lastmod>2023-10-08T16:15:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/categories/</loc>
-    <lastmod>2023-09-17T11:36:59+08:00</lastmod>
+    <lastmod>2023-10-08T16:15:32+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zyt153.github.io/post/pr_record_2/</loc>
+    <lastmod>2023-10-08T16:15:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/post/</loc>
-    <lastmod>2023-09-17T11:36:59+08:00</lastmod>
+    <lastmod>2023-10-08T16:15:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/tags/pr/</loc>
-    <lastmod>2023-09-17T11:36:59+08:00</lastmod>
+    <lastmod>2023-10-08T16:15:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/categories/pr/</loc>
-    <lastmod>2023-09-17T11:36:59+08:00</lastmod>
+    <lastmod>2023-10-08T16:15:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/tags/</loc>
-    <lastmod>2023-09-17T11:36:59+08:00</lastmod>
+    <lastmod>2023-10-08T16:15:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/tags/technology/</loc>
-    <lastmod>2023-09-17T11:36:59+08:00</lastmod>
+    <lastmod>2023-10-08T16:15:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/post/pr_record_1/</loc>
-    <lastmod>2023-09-17T11:36:59+08:00</lastmod>
+    <lastmod>2023-09-21T22:35:44+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/tags/object-storage/</loc>
-    <lastmod>2023-09-08T16:02:19+08:00</lastmod>
+    <lastmod>2023-09-07T13:13:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/categories/object-storage/</loc>
-    <lastmod>2023-09-08T16:02:19+08:00</lastmod>
+    <lastmod>2023-09-07T13:13:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/post/object_storage_vs_block_storage/</loc>
-    <lastmod>2023-09-08T16:02:19+08:00</lastmod>
+    <lastmod>2023-09-07T13:13:09+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>

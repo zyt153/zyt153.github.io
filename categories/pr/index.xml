@@ -6,9 +6,18 @@
     <description>Recent content in pr on Big Wilte Cat&#39;s Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 17 Sep 2023 11:36:59 +0800</lastBuildDate><atom:link href="https://zyt153.github.io/categories/pr/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Oct 2023 16:15:32 +0800</lastBuildDate><atom:link href="https://zyt153.github.io/categories/pr/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>一次漫长的customer case问题定位</title>
+      <title>Customer case - content length is zero</title>
+      <link>https://zyt153.github.io/post/pr_record_2/</link>
+      <pubDate>Sun, 08 Oct 2023 16:15:32 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/pr_record_2/</guid>
+      <description>这是一个今年上半年非常令我头大的PR，一方面是产生错误的原因不好找，另一方面是和客户的沟通比较费劲。最终我在一次客户会议中解决了问题，当时觉</description>
+    </item>
+    
+    <item>
+      <title>一次漫长的customer case问题定位 - OOM</title>
       <link>https://zyt153.github.io/post/pr_record_1/</link>
       <pubDate>Sun, 17 Sep 2023 11:36:59 +0800</pubDate>
       
