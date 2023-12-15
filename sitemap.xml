@@ -10,27 +10,62 @@
   
   <url>
     <loc>https://zyt153.github.io/</loc>
-    <lastmod>2023-10-08T16:15:32+08:00</lastmod>
+    <lastmod>2023-12-15T14:38:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/categories/</loc>
-    <lastmod>2023-10-08T16:15:32+08:00</lastmod>
+    <lastmod>2023-12-15T14:38:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
-    <loc>https://zyt153.github.io/post/pr_record_2/</loc>
-    <lastmod>2023-10-08T16:15:32+08:00</lastmod>
+    <loc>https://zyt153.github.io/tags/k8s/</loc>
+    <lastmod>2023-12-15T14:38:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zyt153.github.io/categories/k8s/</loc>
+    <lastmod>2023-12-15T14:38:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zyt153.github.io/post/pod_always_pending/</loc>
+    <lastmod>2023-12-15T14:38:06+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/post/</loc>
+    <lastmod>2023-12-15T14:38:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zyt153.github.io/tags/</loc>
+    <lastmod>2023-12-15T14:38:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zyt153.github.io/tags/technology/</loc>
+    <lastmod>2023-12-15T14:38:06+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zyt153.github.io/post/pr_record_2/</loc>
     <lastmod>2023-10-08T16:15:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -45,20 +80,6 @@
   
   <url>
     <loc>https://zyt153.github.io/categories/pr/</loc>
-    <lastmod>2023-10-08T16:15:32+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zyt153.github.io/tags/</loc>
-    <lastmod>2023-10-08T16:15:32+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zyt153.github.io/tags/technology/</loc>
     <lastmod>2023-10-08T16:15:32+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>

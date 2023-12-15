@@ -76,7 +76,7 @@
 <meta itemprop="name" content="Customer case - content length is zero">
 <meta itemprop="description" content="这是一个今年上半年非常令我头大的PR，一方面是产生错误的原因不好找，另一方面是和客户的沟通比较费劲。最终我在一次客户会议中解决了问题，当时觉"><meta itemprop="datePublished" content="2023-10-08T16:15:32+08:00" />
 <meta itemprop="dateModified" content="2023-10-08T16:15:32+08:00" />
-<meta itemprop="wordCount" content="1479">
+<meta itemprop="wordCount" content="1480">
 <meta itemprop="keywords" content="technology,pr," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Customer case - content length is zero"/>
 <meta name="twitter:description" content="这是一个今年上半年非常令我头大的PR，一方面是产生错误的原因不好找，另一方面是和客户的沟通比较费劲。最终我在一次客户会议中解决了问题，当时觉"/>
@@ -345,7 +345,7 @@
 
   <div class="post-meta__right">
     <span class="post-meta-more">
-        1479 words -
+        1480 words -
         3 min read
       </span>
 
@@ -370,7 +370,7 @@
         <div class="post-content">
           <p>这是一个今年上半年非常令我头大的PR，一方面是产生错误的原因不好找，另一方面是和客户的沟通比较费劲。最终我在一次客户会议中解决了问题，当时觉得很有成就感。</p>
 <h2 id="问题描述">问题描述</h2>
-<p>客户在尝试获取object storage中的一个json文件时出<strong>FixedLengthOverflowException</strong>：</p>
+<p>客户在尝试获取object storage中的一个json文件时出现<strong>FixedLengthOverflowException</strong>：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#f92672">[</span>task<span style="color:#f92672">]</span> ERROR org<span style="color:#f92672">.</span><span style="color:#a6e22e">xnio</span><span style="color:#f92672">.</span><span style="color:#a6e22e">channels</span><span style="color:#f92672">.</span><span style="color:#a6e22e">FixedLengthOverflowException</span><span style="color:#f92672">:</span> <span style="color:#66d9ef">null</span>
 </span></span><span style="display:flex;"><span>at io<span style="color:#f92672">.</span><span style="color:#a6e22e">undertow</span><span style="color:#f92672">.</span><span style="color:#a6e22e">conduits</span><span style="color:#f92672">.</span><span style="color:#a6e22e">AbstractFixedLengthStreamSinkConduit</span><span style="color:#f92672">.</span><span style="color:#a6e22e">write</span><span style="color:#f92672">(</span>AbstractFixedLengthStreamSinkConduit<span style="color:#f92672">.</span><span style="color:#a6e22e">java</span><span style="color:#f92672">:</span>100<span style="color:#f92672">)</span>
 </span></span><span style="display:flex;"><span>at org<span style="color:#f92672">.</span><span style="color:#a6e22e">xnio</span><span style="color:#f92672">.</span><span style="color:#a6e22e">conduits</span><span style="color:#f92672">.</span><span style="color:#a6e22e">Conduits</span><span style="color:#f92672">.</span><span style="color:#a6e22e">writeFinalBasic</span><span style="color:#f92672">(</span>Conduits<span style="color:#f92672">.</span><span style="color:#a6e22e">java</span><span style="color:#f92672">:</span>132<span style="color:#f92672">)</span>
@@ -453,6 +453,19 @@
           
           <nav class="post-nav">
             
+              <a class="prev" href="/post/pod_always_pending/">
+                
+                <i class="iconfont">
+                  <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
+</svg>
+
+                </i>
+                <span class="prev-text nav-default">K8s - Solve pod is always pending</span>
+                <span class="prev-text nav-mobile">Prev</span>
+              </a>
             
               <a class="next" href="/post/pr_record_1/">
                 <span class="next-text nav-default">一次漫长的customer case问题定位 - OOM</span>

@@ -6,7 +6,16 @@
     <description>Recent content in technology on Big Wilte Cat&#39;s Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sun, 08 Oct 2023 16:15:32 +0800</lastBuildDate><atom:link href="https://zyt153.github.io/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 15 Dec 2023 14:38:06 +0800</lastBuildDate><atom:link href="https://zyt153.github.io/tags/technology/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>K8s - Solve pod is always pending</title>
+      <link>https://zyt153.github.io/post/pod_always_pending/</link>
+      <pubDate>Fri, 15 Dec 2023 14:38:06 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/pod_always_pending/</guid>
+      <description>Statement I&amp;rsquo;m using colima &amp;amp; kind &amp;amp; kubebuilder to test a operator project in my local env. The way I set up a local kind cluster is Contour_Create_a_Kind_Cluster. The cluster looks like: &amp;gt;&amp;gt; kubectl get node NAME STATUS ROLES AGE VERSION kind-control-plane Ready control-plane 24h v1.27.3 kind-worker Ready &amp;lt;none&amp;gt; 24h v1.27.3 Then use make run to start and deploy a service. However, when I used kubectl get all -n ns</description>
+    </item>
+    
     <item>
       <title>Customer case - content length is zero</title>
       <link>https://zyt153.github.io/post/pr_record_2/</link>

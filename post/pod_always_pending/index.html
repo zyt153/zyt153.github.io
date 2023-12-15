@@ -7,7 +7,9 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Archive - Big Wilte Cat&#39;s Home</title>
+    <title>
+          K8s - Solve pod is always pending - Big Wilte Cat&#39;s Home
+        </title>
     
 
 <meta name="renderer" content="webkit" />
@@ -27,7 +29,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="大白猫" />
-  <meta name="description" content="Hugo theme jane example site." />
+  <meta name="description" content="Statement I&amp;rsquo;m using colima &amp;amp; kind &amp;amp; kubebuilder to test a operator project in my local env. The way I set up a local kind cluster is Contour_Create_a_Kind_Cluster. The cluster looks like: &amp;gt;&amp;gt; kubectl get node NAME STATUS ROLES AGE VERSION kind-control-plane Ready control-plane 24h v1.27.3 kind-worker Ready &amp;lt;none&amp;gt; 24h v1.27.3 Then use make run to start and deploy a service. However, when I used kubectl get all -n ns" />
+
   <meta name="keywords" content="Hugo, theme, jane" />
 
 
@@ -38,8 +41,8 @@
 <meta name="generator" content="Hugo 0.116.1" />
 
 
-<link rel="canonical" href="https://zyt153.github.io/post/" />
-<link href="/post/index.xml" rel="alternate" type="application/rss+xml" title="Big Wilte Cat&#39;s Home" />
+<link rel="canonical" href="https://zyt153.github.io/post/pod_always_pending/" />
+
 
 
 
@@ -64,14 +67,19 @@
 
 
 
-<meta property="og:title" content="Posts" />
-<meta property="og:description" content="Hugo theme jane example site." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://zyt153.github.io/post/" />
-<meta itemprop="name" content="Posts">
-<meta itemprop="description" content="Hugo theme jane example site."><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="Posts"/>
-<meta name="twitter:description" content="Hugo theme jane example site."/>
+<meta property="og:title" content="K8s - Solve pod is always pending" />
+<meta property="og:description" content="Statement I&rsquo;m using colima &amp; kind &amp; kubebuilder to test a operator project in my local env. The way I set up a local kind cluster is Contour_Create_a_Kind_Cluster. The cluster looks like: &gt;&gt; kubectl get node NAME STATUS ROLES AGE VERSION kind-control-plane Ready control-plane 24h v1.27.3 kind-worker Ready &lt;none&gt; 24h v1.27.3 Then use make run to start and deploy a service. However, when I used kubectl get all -n ns" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zyt153.github.io/post/pod_always_pending/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-12-15T14:38:06+08:00" />
+<meta property="article:modified_time" content="2023-12-15T14:38:06+08:00" />
+<meta itemprop="name" content="K8s - Solve pod is always pending">
+<meta itemprop="description" content="Statement I&rsquo;m using colima &amp; kind &amp; kubebuilder to test a operator project in my local env. The way I set up a local kind cluster is Contour_Create_a_Kind_Cluster. The cluster looks like: &gt;&gt; kubectl get node NAME STATUS ROLES AGE VERSION kind-control-plane Ready control-plane 24h v1.27.3 kind-worker Ready &lt;none&gt; 24h v1.27.3 Then use make run to start and deploy a service. However, when I used kubectl get all -n ns"><meta itemprop="datePublished" content="2023-12-15T14:38:06+08:00" />
+<meta itemprop="dateModified" content="2023-12-15T14:38:06+08:00" />
+<meta itemprop="wordCount" content="579">
+<meta itemprop="keywords" content="technology,k8s," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="K8s - Solve pod is always pending"/>
+<meta name="twitter:description" content="Statement I&rsquo;m using colima &amp; kind &amp; kubebuilder to test a operator project in my local env. The way I set up a local kind cluster is Contour_Create_a_Kind_Cluster. The cluster looks like: &gt;&gt; kubectl get node NAME STATUS ROLES AGE VERSION kind-control-plane Ready control-plane 24h v1.27.3 kind-worker Ready &lt;none&gt; 24h v1.27.3 Then use make run to start and deploy a service. However, when I used kubectl get all -n ns"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -240,7 +248,7 @@
 
       </li>
     
-        <li class="menu-item active">
+        <li class="menu-item">
         
           
           
@@ -307,117 +315,243 @@
 
     <div id="mobile-panel">
       <main id="main" class="main bg-llight wallpaper">
+        <div class="content-wrapper">
+    <div id="content" class="content">
+      <article class="post">
         
-<section id="archive" class="archive">
-    <div class="archive-title">
-      <span class="archive-post-counter">
-          6 posts In Total
-      </span>
-    </div>
+        <header class="post-header">
+          <h1 class="post-title">K8s - Solve pod is always pending</h1>
+          
+
+          <div class="post-meta">
+  <div class="post-meta-author">
+    by
+      <a href="/about">
+        <span class="post-meta-author-name">
+          大白猫
+        </span>
+      </a>
     
-      <div class="collection-title">
-        <h2 class="archive-year">2023</h2>
+  </div>
+
+  <div class="post-meta-time">
+    <time datetime="2023-12-15">
+      2023-12-15
+    </time>
+  </div>
+
+  
+
+
+  <div class="post-meta__right">
+    <span class="post-meta-more">
+        579 words -
+        2 min read
+      </span>
+
+    <div class="post-meta-category">
+        <a href="https://zyt153.github.io/categories/k8s/"> k8s </a>
+          
       </div>
 
-    <div class="archive-post">
-      <time datetime="2023-12-15" class="archive-post-time">
-        2023-12-15
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/pod_always_pending/" class="archive-post-link">
-          K8s - Solve pod is always pending
-        </a>
-      </span>
-    </div>
+
+    
     
 
-    <div class="archive-post">
-      <time datetime="2023-10-08" class="archive-post-time">
-        2023-10-08
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/pr_record_2/" class="archive-post-link">
-          Customer case - content length is zero
-        </a>
-      </span>
-    </div>
+
+    
+    
+  </div>
+</div>
+
+        </header>
+
+        
+        <div class="post-content">
+          <h2 id="statement">Statement</h2>
+<p>I&rsquo;m using <em>colima</em> &amp; <em>kind</em> &amp; <em>kubebuilder</em> to test a operator project in my local env. The way I set up a local kind cluster is <a href="https://projectcontour.io/docs/1.27/guides/kind/">Contour_Create_a_Kind_Cluster</a>. The cluster looks like:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt;&gt; kubectl get node
+</span></span><span style="display:flex;"><span>NAME                 STATUS   ROLES           AGE   VERSION
+</span></span><span style="display:flex;"><span>kind-control-plane   Ready    control-plane   24h   v1.27.3
+</span></span><span style="display:flex;"><span>kind-worker          Ready    &lt;none&gt;          24h   v1.27.3
+</span></span></code></pre></div><p>Then use <code>make run</code> to start and deploy a service. However, when I used <code>kubectl get all -n ns</code> to check the status of the service, I found that there is 0/1 pod READY and its STATUS is always <em>pending</em>. Also, the replicaset and deployment is not ready.</p>
+<h2 id="trouble-shooting-step">Trouble-shooting Step</h2>
+<p>Describe the pod and check the events:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl describe pod pod-name -n ns
+</span></span></code></pre></div><p>Find the events:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Events:
+</span></span><span style="display:flex;"><span>Type Reason Age From Message
+</span></span><span style="display:flex;"><span>---- ------ ---- ---- -------
+</span></span><span style="display:flex;"><span>Warning  FailedScheduling  6m21s  default-scheduler  0/2 nodes are available: <span style="color:#ae81ff">1</span> Insufficient cpu, <span style="color:#ae81ff">1</span> Insufficient memory, <span style="color:#ae81ff">1</span> node<span style="color:#f92672">(</span>s<span style="color:#f92672">)</span> had untolerated taint <span style="color:#f92672">{</span>node-role.kubernetes.io/control-plane: <span style="color:#f92672">}</span>. preemption: 0/2 nodes are available: <span style="color:#ae81ff">1</span> No preemption victims found <span style="color:#66d9ef">for</span> incoming pod, <span style="color:#ae81ff">1</span> Preemption is not helpful <span style="color:#66d9ef">for</span> scheduling..
+</span></span></code></pre></div><p>It means there is no node available to schedule the pod and it gives some reasons. In my case, it indicates three issues:</p>
+<ol>
+<li>The node doesn&rsquo;t have sufficient cpu.</li>
+<li>The node doesn&rsquo;t have sufficient memory.</li>
+<li>The node has taint, and the pod has no related taint tolerations.</li>
+</ol>
+<p>So check the node:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl describe node kind-control-plane
+</span></span><span style="display:flex;"><span>kubectl describe node kind-worker
+</span></span></code></pre></div><p>For issue#1 and issue#2, from the describe of node (both <code>kind-control-plane</code> and <code>kind-worker</code>), I can see the cpu number is 2 and the memory is 1941184Ki (about 2 GB) in <em>Capacity</em> and <em>Allocatable</em> part. It is limited by <em>colima</em> (some cases from google say that <em>kind</em> cannot add resource limitation, so it limited by <em>colima</em> vm). And in <em>Conditions</em> part, there are MemoryPressure, DiskPressure and PIDPressure. We can edit <em>colima</em> config by this command line and restart it.</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>colima start --edit
+</span></span></code></pre></div><p>Expand the cpu to 4 and the memory to 8 GB. Then the cpu and memory limitation is updated in node. (But the MemoryPressure, DiskPressure and PIDPressure still exist with False, why?)</p>
+<p>For issue#3, in node <code>kind-control-plane</code> there is a taint: <code>Taints: node-role.kubernetes.io/control-plane:NoSchedule</code>. There are two ways to resolve it:</p>
+<ul>
+<li>
+<p>Delete the taint in node (Not recommend)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>&gt;&gt; kubectl taint nodes kind-control-plane node-role.kubernetes.io/control-plane-
+</span></span><span style="display:flex;"><span>node/kind-control-plane untainted
+</span></span></code></pre></div><p>(mind that there is a <code>-</code> at the end)</p>
+</li>
+<li>
+<p>Add taint tolerance on pod (I never tried)</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>kubectl edit deployment deployment-name -n ns
+</span></span></code></pre></div><p>Add taint tolerance in <em>spec</em> in the yaml file:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>tolerations:
+</span></span><span style="display:flex;"><span>	- key: <span style="color:#e6db74">&#34;special&#34;</span>
+</span></span><span style="display:flex;"><span>	operator: <span style="color:#e6db74">&#34;Equal&#34;</span>
+</span></span><span style="display:flex;"><span>	value: <span style="color:#e6db74">&#34;true&#34;</span>
+</span></span><span style="display:flex;"><span>	effect: <span style="color:#e6db74">&#34;NoSchedule&#34;</span>
+</span></span></code></pre></div></li>
+</ul>
+<p>Then use  <code>kubectl describe pod</code> and find that default-scheduler scheduled the pod successfully:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>Events:
+</span></span><span style="display:flex;"><span>  Type     Reason            Age                  From               Message
+</span></span><span style="display:flex;"><span>  ----     ------            ----                 ----               -------
+</span></span><span style="display:flex;"><span>  Warning  FailedScheduling  46m <span style="color:#f92672">(</span>x18 over 132m<span style="color:#f92672">)</span>  default-scheduler  0/2 nodes are available: <span style="color:#ae81ff">2</span> Insufficient cpu, <span style="color:#ae81ff">2</span> Insufficient memory. preemption: 0/2 nodes are available: <span style="color:#ae81ff">2</span> No preemption victims found <span style="color:#66d9ef">for</span> incoming pod..
+</span></span><span style="display:flex;"><span>  Warning  FailedScheduling  20m                  default-scheduler  0/2 nodes are available: <span style="color:#ae81ff">2</span> Insufficient cpu, <span style="color:#ae81ff">2</span> Insufficient memory. preemption: 0/2 nodes are available: <span style="color:#ae81ff">2</span> No preemption victims found <span style="color:#66d9ef">for</span> incoming pod..
+</span></span><span style="display:flex;"><span>  Normal   Scheduled         17m                  default-scheduler  Successfully assigned vcd-ose/vcd-ose-6377fd78-c7c1-4ad8-a222-41dd23605044-5fd9957587-ldqpz to kind-worker
+</span></span><span style="display:flex;"><span>  Normal   Pulling           17m                  kubelet            Pulling image <span style="color:#e6db74">&#34;***&#34;</span>
+</span></span><span style="display:flex;"><span>  Normal   Pulled            14m                  kubelet            Successfully pulled image <span style="color:#e6db74">&#34;***&#34;</span> in 3m13.030336154s <span style="color:#f92672">(</span>3m13.03038557s including waiting<span style="color:#f92672">)</span>
+</span></span><span style="display:flex;"><span>  Normal   Created           14m                  kubelet            Created container ***
+</span></span><span style="display:flex;"><span>  Normal   Started           14m                  kubelet            Started container ***
+</span></span><span style="display:flex;"><span>  Warning  Unhealthy         10m <span style="color:#f92672">(</span>x22 over 13m<span style="color:#f92672">)</span>   kubelet            Readiness probe failed: Get <span style="color:#e6db74">&#34;http://10.244.1.3:8080/api/v1/core&#34;</span>: dial tcp 10.244.1.3:8080: connect: connection refused
+</span></span></code></pre></div><h2 id="reference">Reference</h2>
+<p><a href="https://cloud.tencent.com/document/product/457/42948">腾讯云 - Pod一直处于 Pending状态</a></p>
+
+        </div>
+
+        
+        
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">大白猫</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+      2023-12-15
+      
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+
+
+        
+        
+
+
+        <footer class="post-footer">
+          <div class="post-tags">
+              <a href="https://zyt153.github.io/tags/technology/">technology</a>
+                <a href="https://zyt153.github.io/tags/k8s/">k8s</a>
+                
+            </div>
+
+
+          
+          <nav class="post-nav">
+            
+            
+              <a class="next" href="/post/pr_record_2/">
+                <span class="next-text nav-default">Customer case - content length is zero</span>
+                <span class="prev-text nav-mobile">Next</span>
+                
+                <i class="iconfont">
+                  <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+                </i>
+              </a>
+          </nav>
+        </footer>
+      </article>
+
+      
+      
+
+
+      
+      
+
+  
+
+  
+  
+    <div class="post">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="zyt153/zyt153.github.io"
+    data-repo-id="R_kgDOKDTjhg"
+    data-category="General"
+    data-category-id="DIC_kwDOKDTjhs4CZI99"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    
+    crossorigin="anonymous"
+    async
+  ></script>
+</div>
+
+  
+
+  
+  
+
+  
+
+  
+
     
 
-    <div class="archive-post">
-      <time datetime="2023-09-17" class="archive-post-time">
-        2023-09-17
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/pr_record_1/" class="archive-post-link">
-          一次漫长的customer case问题定位 - OOM
-        </a>
-      </span>
+  
+
+  
+
+
     </div>
-    
 
-    <div class="archive-post">
-      <time datetime="2023-09-07" class="archive-post-time">
-        2023-09-07
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/object_storage_vs_block_storage/" class="archive-post-link">
-          对象存储vs块存储
-        </a>
-      </span>
+    
+    <nav class="toc" id="toc">
+    <div class="toc-title">Table of Contents</div>
+    <div class="toc-content custom-scrollbar">
+      <nav id="TableOfContents">
+  <ul>
+    <li><a href="#statement">Statement</a></li>
+    <li><a href="#trouble-shooting-step">Trouble-shooting Step</a></li>
+    <li><a href="#reference">Reference</a></li>
+  </ul>
+</nav>
     </div>
-    
-
-    <div class="archive-post">
-      <time datetime="2023-09-03" class="archive-post-time">
-        2023-09-03
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/object_storage_vs_file_storage/" class="archive-post-link">
-          对象存储vs文件存储
-        </a>
-      </span>
-    </div>
-    
-      <div class="collection-title">
-        <h2 class="archive-year">2018</h2>
-      </div>
-
-    <div class="archive-post">
-      <time datetime="2018-01-01" class="archive-post-time">
-        2018-01-01
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/jane-theme-preview/" class="archive-post-link">
-          Jane Theme Preview
-        </a>
-      </span>
-    </div></section>
+  </nav>
 
 
-
-
-
-
-  
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-
-
-
-
+  </div>
 
       </main>
 
