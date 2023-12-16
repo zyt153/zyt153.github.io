@@ -6,7 +6,25 @@
     <description>Recent content in k8s on Big Wilte Cat&#39;s Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Fri, 15 Dec 2023 14:38:06 +0800</lastBuildDate><atom:link href="https://zyt153.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 16 Dec 2023 20:57:56 +0800</lastBuildDate><atom:link href="https://zyt153.github.io/tags/k8s/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>View certificate with ingress in kind cluster </title>
+      <link>https://zyt153.github.io/post/cert_in_kind_cluster/</link>
+      <pubDate>Sat, 16 Dec 2023 20:57:56 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/cert_in_kind_cluster/</guid>
+      <description>Env Runtime: Colima Cluster: Kind Ingress controller: Contour Certification: Cert-manager Statement I&amp;rsquo;m testing in my local env totally, and have no DNS. I want to check the self-signed cert created by issuer. Already created a cluster with kind: Contour_Create_a_Kind_Cluster Service: apiVersion: v1 kind: Service metadata: name: service-name namespace: ns spec: ports: - name: external port: 8080 targetPort: 8080 selector: app: app-name type: LoadBalancer A self-signed issuer: apiVersion: cert-manager.io/v1 kind: Issuer</description>
+    </item>
+    
+    <item>
+      <title>Mark for CKA</title>
+      <link>https://zyt153.github.io/post/mark_for_cka/</link>
+      <pubDate>Sat, 16 Dec 2023 20:45:35 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/mark_for_cka/</guid>
+      <description>Official Website Training portal Practice in Github CKA Practice Exercises Kubernetes Certified Administration K8s Practice Training Awesome Kubernetes Some Blogs CKA 考試全攻略流程 Kubernetes CKA 证书备考笔记</description>
+    </item>
+    
     <item>
       <title>K8s - Solve pod is always pending</title>
       <link>https://zyt153.github.io/post/pod_always_pending/</link>

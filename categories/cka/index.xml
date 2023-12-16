@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>cka on Big Wilte Cat&#39;s Home</title>
+    <link>https://zyt153.github.io/categories/cka/</link>
+    <description>Recent content in cka on Big Wilte Cat&#39;s Home</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 16 Dec 2023 20:45:35 +0800</lastBuildDate><atom:link href="https://zyt153.github.io/categories/cka/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Mark for CKA</title>
+      <link>https://zyt153.github.io/post/mark_for_cka/</link>
+      <pubDate>Sat, 16 Dec 2023 20:45:35 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/mark_for_cka/</guid>
+      <description>Official Website Training portal Practice in Github CKA Practice Exercises Kubernetes Certified Administration K8s Practice Training Awesome Kubernetes Some Blogs CKA 考試全攻略流程 Kubernetes CKA 证书备考笔记</description>
+    </item>
+    
+  </channel>
+</rss>
