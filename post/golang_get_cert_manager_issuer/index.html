@@ -7,7 +7,9 @@
   <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>golang · Big Wilte Cat&#39;s Home</title>
+    <title>
+          golang - 获取cluster中的issuer - Big Wilte Cat&#39;s Home
+        </title>
     
 
 <meta name="renderer" content="webkit" />
@@ -27,7 +29,8 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="大白猫" />
-  <meta name="description" content="Hugo theme jane example site." />
+  <meta name="description" content="最近需要在项目中检查用户提供的cluster issuer是否存在，需要用到cert-manager pkg，但是对于golang和k8s新手来" />
+
   <meta name="keywords" content="Hugo, theme, jane" />
 
 
@@ -38,8 +41,8 @@
 <meta name="generator" content="Hugo 0.116.1" />
 
 
-<link rel="canonical" href="https://zyt153.github.io/tags/golang/" />
-<link href="/tags/golang/index.xml" rel="alternate" type="application/rss+xml" title="Big Wilte Cat&#39;s Home" />
+<link rel="canonical" href="https://zyt153.github.io/post/golang_get_cert_manager_issuer/" />
+
 
 
 
@@ -64,14 +67,19 @@
 
 
 
-<meta property="og:title" content="golang" />
-<meta property="og:description" content="Hugo theme jane example site." />
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://zyt153.github.io/tags/golang/" />
-<meta itemprop="name" content="golang">
-<meta itemprop="description" content="Hugo theme jane example site."><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="golang"/>
-<meta name="twitter:description" content="Hugo theme jane example site."/>
+<meta property="og:title" content="golang - 获取cluster中的issuer" />
+<meta property="og:description" content="最近需要在项目中检查用户提供的cluster issuer是否存在，需要用到cert-manager pkg，但是对于golang和k8s新手来" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://zyt153.github.io/post/golang_get_cert_manager_issuer/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2023-12-21T17:37:30+08:00" />
+<meta property="article:modified_time" content="2023-12-21T17:37:30+08:00" />
+<meta itemprop="name" content="golang - 获取cluster中的issuer">
+<meta itemprop="description" content="最近需要在项目中检查用户提供的cluster issuer是否存在，需要用到cert-manager pkg，但是对于golang和k8s新手来"><meta itemprop="datePublished" content="2023-12-21T17:37:30+08:00" />
+<meta itemprop="dateModified" content="2023-12-21T17:37:30+08:00" />
+<meta itemprop="wordCount" content="442">
+<meta itemprop="keywords" content="golang,k8s," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="golang - 获取cluster中的issuer"/>
+<meta name="twitter:description" content="最近需要在项目中检查用户提供的cluster issuer是否存在，需要用到cert-manager pkg，但是对于golang和k8s新手来"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -307,56 +315,206 @@
 
     <div id="mobile-panel">
       <main id="main" class="main bg-llight wallpaper">
+        <div class="content-wrapper">
+    <div id="content" class="content">
+      <article class="post">
+        
+        <header class="post-header">
+          <h1 class="post-title">golang - 获取cluster中的issuer</h1>
+          
+
+          <div class="post-meta">
+  <div class="post-meta-author">
+    by
+      <a href="/about">
+        <span class="post-meta-author-name">
+          大白猫
+        </span>
+      </a>
+    
+  </div>
+
+  <div class="post-meta-time">
+    <time datetime="2023-12-21">
+      2023-12-21
+    </time>
+  </div>
+
+  
+
+
+  <div class="post-meta__right">
+    <span class="post-meta-more">
+        442 words -
+        1 min read
+      </span>
+
+    <div class="post-meta-category">
+        <a href="https://zyt153.github.io/categories/golang/"> golang </a>
+          
+      </div>
+
+
+    
+    
+
+
+    
+    
+  </div>
+</div>
+
+        </header>
+
+        
+        <div class="post-content">
+          <p>最近需要在项目中检查用户提供的cluster issuer是否存在，需要用到<a href="https://pkg.go.dev/github.com/cert-manager/cert-manager/pkg/apis/certmanager/v1">cert-manager pkg</a>，但是对于golang和k8s新手来说没有详细的文档，google也没找到什么参考（可能大家觉得太简单了？），我几乎是靠chatgpt完成了这部分，记录一下。</p>
+<p>需要import cert-manager相关的pkg（参考<a href="https://cert-manager.io/docs/contributing/importing/">cert-manager-doc-contributing</a>）:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#e6db74">&#34;sigs.k8s.io/controller-runtime/pkg/client/config&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">cmapi</span> <span style="color:#e6db74">&#34;github.com/cert-manager/cert-manager/pkg/apis/certmanager/v1&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#e6db74">&#34;github.com/cert-manager/cert-manager/pkg/client/clientset/versioned&#34;</span>
+</span></span></code></pre></div><p>创建一个certManagerClient：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getCertManagerClient</span>() (<span style="color:#a6e22e">versioned</span>.<span style="color:#a6e22e">Interface</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">cfg</span>, <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">config</span>.<span style="color:#a6e22e">GetConfig</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">e</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">certManagerClient</span>, <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">versioned</span>.<span style="color:#a6e22e">NewForConfig</span>(<span style="color:#a6e22e">cfg</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">e</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">certManagerClient</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>利用GET方法获取指定的cluster issuer：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getClusterIssuer</span>(<span style="color:#a6e22e">ctx</span> <span style="color:#a6e22e">context</span>.<span style="color:#a6e22e">Context</span>, <span style="color:#a6e22e">issuerName</span> <span style="color:#66d9ef">string</span>) (<span style="color:#f92672">*</span><span style="color:#a6e22e">cmapi</span>.<span style="color:#a6e22e">ClusterIssuer</span>, <span style="color:#66d9ef">error</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">certManagerClient</span>, <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">getCertManagerClient</span>()
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">e</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ci</span>, <span style="color:#a6e22e">e</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">certManagerClient</span>.<span style="color:#a6e22e">CertmanagerV1</span>().<span style="color:#a6e22e">ClusterIssuers</span>().<span style="color:#a6e22e">Get</span>(<span style="color:#a6e22e">ctx</span>, <span style="color:#a6e22e">issuerName</span>, <span style="color:#a6e22e">metav1</span>.<span style="color:#a6e22e">GetOptions</span>{})
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">e</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">e</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ci</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>不过最终没有采用这种方法，而是使用项目中已有的k8s controller runtime client来获取cluster issuer。这样需要将<code>cmapi</code>注册到<code>runtime.scheme</code>中（<code>cmapi.AddToScheme(scheme)</code>），再使用client中的GET方法。</p>
+
+        </div>
+
+        
+        
+<div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">Author</span>
+    <span class="item-content">大白猫</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">LastMod</span>
+    <span class="item-content">
+      2023-12-21
+      
+    </span>
+  </p>
+  
+  <p class="copyright-item">
+    <span class="item-title">License</span>
+    <span class="item-content"><a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a></span>
+  </p>
+</div>
+
+
+
+        
         
 
-<section id="archive" class="archive">
-  
-    
-      <div class="archive-title tag">
-        <h2 class="archive-name">Tag: golang</h2>
-      </div>
-    
+
+        <footer class="post-footer">
+          <div class="post-tags">
+              <a href="https://zyt153.github.io/tags/golang/">golang</a>
+                <a href="https://zyt153.github.io/tags/k8s/">k8s</a>
+                
+            </div>
+
+
+          
+          <nav class="post-nav">
+            
+            
+              <a class="next" href="/post/cert_in_kind_cluster/">
+                <span class="next-text nav-default">View certificate with ingress in kind cluster </span>
+                <span class="prev-text nav-mobile">Next</span>
+                
+                <i class="iconfont">
+                  <svg class="icon" viewBox="0 0 1024 1024" version="1.1"
+  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+  width="18" height="18">
+  <path d="M332.091514 74.487481l-75.369571 89.491197c-10.963703 12.998035-10.285251 32.864502 1.499144 44.378743l286.278095 300.375162L266.565125 819.058374c-11.338233 12.190647-11.035334 32.285311 0.638543 44.850487l80.46666 86.564541c11.680017 12.583596 30.356378 12.893658 41.662889 0.716314l377.434212-421.426145c11.332093-12.183484 11.041474-32.266891-0.657986-44.844348l-80.46666-86.564541c-1.772366-1.910513-3.706415-3.533476-5.750981-4.877077L373.270379 71.774697C361.493148 60.273758 343.054193 61.470003 332.091514 74.487481z"></path>
+</svg>
+
+                </i>
+              </a>
+          </nav>
+        </footer>
+      </article>
+
+      
+      
+
+
+      
+      
+
   
 
   
-    <div class="archive-post">
-      <time datetime="2023-12-21" class="archive-post-time">
-        2023-12-21
-      </time>
-      <span class="archive-post-title">
-        <a href="/post/golang_get_cert_manager_issuer/" class="archive-post-link">
-          golang - 获取cluster中的issuer
-        </a>
-      </span>
+  
+    <div class="post">
+  <script
+    src="https://giscus.app/client.js"
+    data-repo="zyt153/zyt153.github.io"
+    data-repo-id="R_kgDOKDTjhg"
+    data-category="General"
+    data-category-id="DIC_kwDOKDTjhs4CZI99"
+    data-mapping="pathname"
+    data-strict="0"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="en"
+    
+    crossorigin="anonymous"
+    async
+  ></script>
+</div>
+
+  
+
+  
+  
+
+  
+
+  
+
+    
+
+  
+
+  
+
+
     </div>
-  
-</section>
+
+    
+    
 
 
-
-
-
-
-  
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-  
-  
-
-
-
-
-
+  </div>
 
       </main>
 
