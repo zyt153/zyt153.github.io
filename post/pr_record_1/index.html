@@ -76,8 +76,8 @@
 <meta itemprop="name" content="一次漫长的customer case问题定位 - OOM">
 <meta itemprop="description" content="在去年九月份，我接到了入职以来第一个PR (Problem Report?)，来自🇦🇺的一个cloud service provider。当时没什么经验的我看着这个custo"><meta itemprop="datePublished" content="2023-09-17T11:36:59+08:00" />
 <meta itemprop="dateModified" content="2023-09-21T22:35:44+08:00" />
-<meta itemprop="wordCount" content="3690">
-<meta itemprop="keywords" content="pr," /><meta name="twitter:card" content="summary"/>
+<meta itemprop="wordCount" content="3695">
+<meta itemprop="keywords" content="pr,troubleshoot," /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="一次漫长的customer case问题定位 - OOM"/>
 <meta name="twitter:description" content="在去年九月份，我接到了入职以来第一个PR (Problem Report?)，来自🇦🇺的一个cloud service provider。当时没什么经验的我看着这个custo"/>
 
@@ -350,7 +350,7 @@
 
   <div class="post-meta__right">
     <span class="post-meta-more">
-        3690 words -
+        3695 words -
         8 min read
       </span>
 
@@ -477,7 +477,7 @@
 </span></span></code></pre></div><p>再往里找一层：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span> <span style="color:#a6e22e">@Transactional</span><span style="color:#f92672">(</span>isolation <span style="color:#f92672">=</span> Isolation<span style="color:#f92672">.</span><span style="color:#a6e22e">READ_COMMITTED</span><span style="color:#f92672">)</span>
 </span></span><span style="display:flex;"><span> <span style="color:#66d9ef">void</span> <span style="color:#a6e22e">deleteByAAA</span><span style="color:#f92672">(</span>String aaa<span style="color:#f92672">);</span>
-</span></span></code></pre></div><p>这里JOB1用来定时清空一些数据库中无用的数据，数据库靠Hibernate JPA连接。和客户求证后发现，他们在进行这个操作时需要删除上千万行记录，直接使用Hibernate方法会使得这些记录先load到内存中，导致OOM。</p>
+</span></span></code></pre></div><p>这里JOB1用来定时清空一些数据库中无用的数据，数据库靠Hibernate JPA连接。和客户求证后发现，他们在进行这个操作时需要删除某张表中的上千万行记录，直接使用Hibernate方法会使得这些记录先load到内存中，导致OOM。</p>
 <p>这个发现看起来十分符合逻辑，于是参考<a href="https://stackoverflow.com/questions/24785439/deleting-1-millions-rows-in-sql-server">Deleting 1 millions rows in SQL Server</a>以及<a href="https://www.baeldung.com/delete-with-hibernate">Deleting Objects with Hibernate</a>提出了几种优化方案：</p>
 <p><strong>方案1:</strong> 先<code>select count(*)</code>计算要被删除的数据数量，一旦超过某个量级就分批删除</p>
 <p><strong>方案2:</strong> 使用Native Query删除</p>
@@ -548,6 +548,7 @@
         <footer class="post-footer">
           <div class="post-tags">
               <a href="https://zyt153.github.io/tags/pr/">pr</a>
+                <a href="https://zyt153.github.io/tags/troubleshoot/">troubleshoot</a>
                 
             </div>
 
@@ -718,7 +719,9 @@
 
   <span class="copyright-year">
     &copy;
-    2023
+    
+      2023 -
+    2024
     <span class="heart">
       
       <i class="iconfont">

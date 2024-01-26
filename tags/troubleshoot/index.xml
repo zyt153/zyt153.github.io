@@ -16,5 +16,23 @@
       <description>Statement I&amp;rsquo;m using colima &amp;amp; kind &amp;amp; kubebuilder to test a operator project in my local env. The way I set up a local kind cluster is Contour_Create_a_Kind_Cluster. The cluster looks like: &amp;gt;&amp;gt; kubectl get node NAME STATUS ROLES AGE VERSION kind-control-plane Ready control-plane 24h v1.27.3 kind-worker Ready &amp;lt;none&amp;gt; 24h v1.27.3 Then use make run to start and deploy a service. However, when I used kubectl get all -n ns</description>
     </item>
     
+    <item>
+      <title>Customer case - content length is zero</title>
+      <link>https://zyt153.github.io/post/pr_record_2/</link>
+      <pubDate>Sun, 08 Oct 2023 16:15:32 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/pr_record_2/</guid>
+      <description>这是一个今年上半年非常令我头大的PR，一方面是产生错误的原因不好找，另一方面是和客户的沟通比较费劲。最终我在一次客户会议中解决了问题，当时觉</description>
+    </item>
+    
+    <item>
+      <title>一次漫长的customer case问题定位 - OOM</title>
+      <link>https://zyt153.github.io/post/pr_record_1/</link>
+      <pubDate>Sun, 17 Sep 2023 11:36:59 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/pr_record_1/</guid>
+      <description>在去年九月份，我接到了入职以来第一个PR (Problem Report?)，来自🇦🇺的一个cloud service provider。当时没什么经验的我看着这个custo</description>
+    </item>
+    
   </channel>
 </rss>

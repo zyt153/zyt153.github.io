@@ -6,7 +6,16 @@
     <description>Recent content in cka on Big Wilte Cat&#39;s Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Sat, 16 Dec 2023 20:45:35 +0800</lastBuildDate><atom:link href="https://zyt153.github.io/tags/cka/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Mon, 22 Jan 2024 13:03:01 +0800</lastBuildDate><atom:link href="https://zyt153.github.io/tags/cka/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>k8s学习笔记-黑马</title>
+      <link>https://zyt153.github.io/post/note_k8s_heima/</link>
+      <pubDate>Mon, 22 Jan 2024 13:03:01 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/note_k8s_heima/</guid>
+      <description>为了准备CKA看了b站上黑马程序员的k8s课程，总体来说比较基础，也有一些过时的内容，但优点在于简单、全面、清晰。参考评论区的笔记记录一下。</description>
+    </item>
+    
     <item>
       <title>Mark for CKA</title>
       <link>https://zyt153.github.io/post/mark_for_cka/</link>
