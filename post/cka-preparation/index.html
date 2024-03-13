@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>
-          View certificate with ingress in kind cluster  - Big Wilte Cat&#39;s Home
+          Preparation for CKA - Big Wilte Cat&#39;s Home
         </title>
     
 
@@ -29,7 +29,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 
 <meta name="author" content="大白猫" />
-  <meta name="description" content="Env Runtime: Colima Cluster: Kind Ingress controller: Contour Certification: Cert-manager Statement I&amp;rsquo;m testing in my local env totally, and have no DNS. I want to check the self-signed cert created by issuer. Already created a cluster with kind: Contour_Create_a_Kind_Cluster Service: apiVersion: v1 kind: Service metadata: name: service-name namespace: ns spec: ports: - name: external port: 8080 targetPort: 8080 selector: app: app-name type: LoadBalancer A self-signed issuer: apiVersion: cert-manager.io/v1 kind: Issuer" />
+  <meta name="description" content="Official Website K8s doc Training portal Prepare Resources in Github Kubernetes Certified Administration - Some exercises based on exam objectives. Has some useful tips and links. K8s Practice Training - A basic k8s exercise. Awesome Kubernetes - Introduction and blogs about k8s. Online Practice https://killercoda.com/killer-shell-cka - Free https://killer.sh - two sessions, 36h free for each Related Blogs (In Chinese) CKA 考試全攻略流程 Kubernetes CKA 证" />
 
   <meta name="keywords" content="Hugo, theme, jane" />
 
@@ -41,7 +41,7 @@
 <meta name="generator" content="Hugo 0.116.1" />
 
 
-<link rel="canonical" href="https://zyt153.github.io/post/cert_in_kind_cluster/" />
+<link rel="canonical" href="https://zyt153.github.io/post/cka-preparation/" />
 
 
 
@@ -67,19 +67,19 @@
 
 
 
-<meta property="og:title" content="View certificate with ingress in kind cluster " />
-<meta property="og:description" content="Env Runtime: Colima Cluster: Kind Ingress controller: Contour Certification: Cert-manager Statement I&rsquo;m testing in my local env totally, and have no DNS. I want to check the self-signed cert created by issuer. Already created a cluster with kind: Contour_Create_a_Kind_Cluster Service: apiVersion: v1 kind: Service metadata: name: service-name namespace: ns spec: ports: - name: external port: 8080 targetPort: 8080 selector: app: app-name type: LoadBalancer A self-signed issuer: apiVersion: cert-manager.io/v1 kind: Issuer" />
+<meta property="og:title" content="Preparation for CKA" />
+<meta property="og:description" content="Official Website K8s doc Training portal Prepare Resources in Github Kubernetes Certified Administration - Some exercises based on exam objectives. Has some useful tips and links. K8s Practice Training - A basic k8s exercise. Awesome Kubernetes - Introduction and blogs about k8s. Online Practice https://killercoda.com/killer-shell-cka - Free https://killer.sh - two sessions, 36h free for each Related Blogs (In Chinese) CKA 考試全攻略流程 Kubernetes CKA 证" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://zyt153.github.io/post/cert_in_kind_cluster/" /><meta property="article:section" content="post" />
-<meta property="article:published_time" content="2023-12-16T20:57:56+08:00" />
-<meta property="article:modified_time" content="2023-12-16T20:57:56+08:00" />
-<meta itemprop="name" content="View certificate with ingress in kind cluster ">
-<meta itemprop="description" content="Env Runtime: Colima Cluster: Kind Ingress controller: Contour Certification: Cert-manager Statement I&rsquo;m testing in my local env totally, and have no DNS. I want to check the self-signed cert created by issuer. Already created a cluster with kind: Contour_Create_a_Kind_Cluster Service: apiVersion: v1 kind: Service metadata: name: service-name namespace: ns spec: ports: - name: external port: 8080 targetPort: 8080 selector: app: app-name type: LoadBalancer A self-signed issuer: apiVersion: cert-manager.io/v1 kind: Issuer"><meta itemprop="datePublished" content="2023-12-16T20:57:56+08:00" />
-<meta itemprop="dateModified" content="2023-12-16T20:57:56+08:00" />
-<meta itemprop="wordCount" content="356">
-<meta itemprop="keywords" content="k8s," /><meta name="twitter:card" content="summary"/>
-<meta name="twitter:title" content="View certificate with ingress in kind cluster "/>
-<meta name="twitter:description" content="Env Runtime: Colima Cluster: Kind Ingress controller: Contour Certification: Cert-manager Statement I&rsquo;m testing in my local env totally, and have no DNS. I want to check the self-signed cert created by issuer. Already created a cluster with kind: Contour_Create_a_Kind_Cluster Service: apiVersion: v1 kind: Service metadata: name: service-name namespace: ns spec: ports: - name: external port: 8080 targetPort: 8080 selector: app: app-name type: LoadBalancer A self-signed issuer: apiVersion: cert-manager.io/v1 kind: Issuer"/>
+<meta property="og:url" content="https://zyt153.github.io/post/cka-preparation/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2024-03-13T17:45:35+08:00" />
+<meta property="article:modified_time" content="2024-03-13T17:45:35+08:00" />
+<meta itemprop="name" content="Preparation for CKA">
+<meta itemprop="description" content="Official Website K8s doc Training portal Prepare Resources in Github Kubernetes Certified Administration - Some exercises based on exam objectives. Has some useful tips and links. K8s Practice Training - A basic k8s exercise. Awesome Kubernetes - Introduction and blogs about k8s. Online Practice https://killercoda.com/killer-shell-cka - Free https://killer.sh - two sessions, 36h free for each Related Blogs (In Chinese) CKA 考試全攻略流程 Kubernetes CKA 证"><meta itemprop="datePublished" content="2024-03-13T17:45:35+08:00" />
+<meta itemprop="dateModified" content="2024-03-13T17:45:35+08:00" />
+<meta itemprop="wordCount" content="797">
+<meta itemprop="keywords" content="k8s,cka," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Preparation for CKA"/>
+<meta name="twitter:description" content="Official Website K8s doc Training portal Prepare Resources in Github Kubernetes Certified Administration - Some exercises based on exam objectives. Has some useful tips and links. K8s Practice Training - A basic k8s exercise. Awesome Kubernetes - Introduction and blogs about k8s. Online Practice https://killercoda.com/killer-shell-cka - Free https://killer.sh - two sessions, 36h free for each Related Blogs (In Chinese) CKA 考試全攻略流程 Kubernetes CKA 证"/>
 
 <!--[if lte IE 9]>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
@@ -320,7 +320,7 @@
       <article class="post">
         
         <header class="post-header">
-          <h1 class="post-title">View certificate with ingress in kind cluster </h1>
+          <h1 class="post-title">Preparation for CKA</h1>
           
 
           <div class="post-meta">
@@ -335,8 +335,8 @@
   </div>
 
   <div class="post-meta-time">
-    <time datetime="2023-12-16">
-      2023-12-16
+    <time datetime="2024-03-13">
+      2024-03-13
     </time>
   </div>
 
@@ -345,8 +345,8 @@
 
   <div class="post-meta__right">
     <span class="post-meta-more">
-        356 words -
-        1 min read
+        797 words -
+        2 min read
       </span>
 
     <div class="post-meta-category">
@@ -368,93 +368,143 @@
 
         
         <div class="post-content">
-          <h2 id="env">Env</h2>
+          <h2 id="official-website">Official Website</h2>
 <ul>
-<li>Runtime: Colima</li>
-<li>Cluster: Kind</li>
-<li>Ingress controller: Contour</li>
-<li>Certification: Cert-manager</li>
+<li><a href="https://kubernetes.io/docs/home/">K8s doc</a></li>
+<li><a href="https://trainingportal.linuxfoundation.org/learn/dashboard">Training portal</a></li>
 </ul>
-<h2 id="statement">Statement</h2>
-<p>I&rsquo;m testing in my local env totally, and have no DNS. I want to check the self-signed cert created by issuer.</p>
-<p>Already created a cluster with kind: <a href="https://projectcontour.io/docs/1.27/guides/kind/">Contour_Create_a_Kind_Cluster</a></p>
-<p>Service:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">v1</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Service</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">service-name</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">ns</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">ports</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">name</span>: <span style="color:#ae81ff">external</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">port</span>: <span style="color:#ae81ff">8080</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">targetPort</span>: <span style="color:#ae81ff">8080</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selector</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">app</span>: <span style="color:#ae81ff">app-name</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">type</span>: <span style="color:#ae81ff">LoadBalancer</span>
-</span></span></code></pre></div><p>A self-signed issuer:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">cert-manager.io/v1</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Issuer</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">selfsigned-issuer</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">ns</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">selfSigned</span>: {}
-</span></span></code></pre></div><p>Ingress:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-yaml" data-lang="yaml"><span style="display:flex;"><span><span style="color:#f92672">apiVersion</span>: <span style="color:#ae81ff">networking.k8s.io/v1</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">kind</span>: <span style="color:#ae81ff">Ingress</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">metadata</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">name</span>: <span style="color:#ae81ff">ingress-name</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">namespace</span>: <span style="color:#ae81ff">ns</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">annotations</span>:
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cert-manager.io/issuer</span>: <span style="color:#ae81ff">selfsigned-issuer</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#f92672">cert-manager.io/common-name</span>: <span style="color:#ae81ff">ose.test.s3.com</span>
-</span></span><span style="display:flex;"><span><span style="color:#f92672">spec</span>:
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">rules</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">host</span>: <span style="color:#ae81ff">ose.test.s3.com</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">http</span>:
-</span></span><span style="display:flex;"><span>        <span style="color:#f92672">paths</span>:
-</span></span><span style="display:flex;"><span>          - <span style="color:#f92672">backend</span>:
-</span></span><span style="display:flex;"><span>              <span style="color:#f92672">service</span>:
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">name</span>: <span style="color:#ae81ff">service-name</span>
-</span></span><span style="display:flex;"><span>                <span style="color:#f92672">port</span>:
-</span></span><span style="display:flex;"><span>                  <span style="color:#f92672">number</span>: <span style="color:#ae81ff">8080</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">path</span>: <span style="color:#ae81ff">/</span>
-</span></span><span style="display:flex;"><span>            <span style="color:#f92672">pathType</span>: <span style="color:#ae81ff">ImplementationSpecific</span>
-</span></span><span style="display:flex;"><span>  <span style="color:#f92672">tls</span>:
-</span></span><span style="display:flex;"><span>    - <span style="color:#f92672">hosts</span>:
-</span></span><span style="display:flex;"><span>        - <span style="color:#ae81ff">ose.test.s3.com</span>
-</span></span><span style="display:flex;"><span>      <span style="color:#f92672">secretName</span>: <span style="color:#ae81ff">secret-name</span>
-</span></span></code></pre></div><p>Now the question is, obviously I cannot visit the random host name I chose (<code>ose.test.s3.com</code>) in browser.</p>
-<p>If I use the command <code>kubectl port-forward service/service-name 8080:8080 -n ns</code>  to forward the service to localhost and visit it by <code>localhost:8080</code>, it&rsquo;s still under http protocol and it&rsquo;s not secure. Forcing it to be <code>https://localhost:8080</code> is not feasible.</p>
-<h2 id="solution">Solution</h2>
-<p>Get IP address of kind node’s Docker container:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker container inspect kind-control-plane <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --format <span style="color:#e6db74">&#39;{{ .NetworkSettings.Networks.kind.IPAddress }}&#39;</span>
-</span></span></code></pre></div><p>Mine is <em>172.18.0.3</em>.</p>
-<p>Create a Docker container, and leverage <code>docker run</code>’s <code>--add-host</code> argument to add an entry to the container’s <code>/etc/hosts</code> file. I can run curl command like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --add-host ose.test.s3.com:172.18.0.3 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --net kind <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --rm <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  curlimages/curl <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  curl -k -v https://ose.test.s3.com
-</span></span></code></pre></div><p>Or openssl like this:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>docker run <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --add-host ose.test.s3.com:172.18.0.3 <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --net kind <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  --rm <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  nginx <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>  openssl s_client -connect ose.test.s3.com:443
-</span></span></code></pre></div><p>It is worth noting that openssl should connect to <em>ose.test.s3.com:443</em> rather than <em><a href="https://ose.test.s3.com">https://ose.test.s3.com</a></em> to get the certificate.</p>
-<p>Then I get the service&rsquo;s self-signed certificate and can view it by:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>openssl x509 -in cert.pem -noout -text
-</span></span></code></pre></div><p>Also, I can check the secret in cluster with:</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>openssl x509 -in &lt;<span style="color:#f92672">(</span>kubectl get secret secret-name -n ns <span style="color:#ae81ff">\
-</span></span></span><span style="display:flex;"><span><span style="color:#ae81ff"></span>    -o jsonpath<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;{.data.tls\.crt}&#39;</span> | base64 --decode<span style="color:#f92672">)</span> -noout -text
-</span></span></code></pre></div><p>These two certificate should be the same.</p>
-<h2 id="reference">Reference</h2>
-<p><a href="https://dustinspecker.com/posts/test-ingress-in-kind/#create-a-kind-cluster-with-ingress-support">How to Test Ingress in a kind cluster</a></p>
+<h2 id="prepare">Prepare</h2>
+<h3 id="resources-in-github">Resources in Github</h3>
+<ul>
+<li><a href="https://github.com/walidshaari/Kubernetes-Certified-Administrator">Kubernetes Certified Administration</a> - Some exercises based on exam objectives. Has some useful tips and links.</li>
+<li><a href="https://github.com/StenlyTU/K8s-training-official">K8s Practice Training</a> - A basic k8s exercise.</li>
+<li><a href="https://github.com/ramitsurana/awesome-kubernetes">Awesome Kubernetes</a> - Introduction and blogs about k8s.</li>
+</ul>
+<h3 id="online-practice">Online Practice</h3>
+<p><a href="https://killercoda.com/killer-shell-cka">https://killercoda.com/killer-shell-cka</a> - Free</p>
+<p><a href="https://killer.sh">https://killer.sh</a> - two sessions, 36h free for each</p>
+<h3 id="related-blogs-in-chinese">Related Blogs (In Chinese)</h3>
+<ul>
+<li><a href="https://medium.com/@app0/cka-%E8%80%83%E8%A9%A6%E5%85%A8%E6%94%BB%E7%95%A5%E6%B5%81%E7%A8%8B-3a28d1b73eea">CKA 考試全攻略流程</a></li>
+<li><a href="https://atbug.com/notes-for-cka-preparation/">Kubernetes CKA 证书备考笔记</a></li>
+</ul>
+<h2 id="practice">Practice</h2>
+<h3 id="1-rbac">1 RBAC</h3>
+<p>Create a cluster role <em>deployment-clusterrole</em> which can create Deployment, StatefulSet, DaemonSet.</p>
+<p>Create a service account <em>cicd-token</em> in namespace <em>app-team1</em>.</p>
+<p>Bind cluster role <em>deployment-clusterrole</em> to the service account <em>cicd-token</em>.</p>
+<h3 id="2-scale-deployment">2 Scale Deployment</h3>
+<p>Extend deployment <em>presentation</em> to 4 pods.</p>
+<h3 id="3-networkpolicy">3 NetworkPolicy</h3>
+<p>Create a new NetworkPolicy <em>allow-port-from-namespace</em> in namespace <em>my-app</em>.</p>
+<p>Ensure the new NetworkPolicy allows the pods in namespace <em>echo</em> to access port <em>9000</em> of pods in namespace <em>my-app</em>.</p>
+<p>Further ensure the new NetworkPolicy:</p>
+<ul>
+<li>Forbidden the access from the pods which doesn&rsquo;t listen to port 9000.</li>
+<li>Forbidden the access from the pods which aren&rsquo;t in namespace <em>echo</em>.</li>
+</ul>
+<h3 id="4-expose-service">4 Expose Service</h3>
+<p>Re-configure the current deployment <em>front-end</em> to add a http port for container <em>nginx</em>: 80/tcp.</p>
+<p>Create a service <em>front-end-svc</em> to expose the port.</p>
+<p>Configure this service to expose the pods by their NodePort.</p>
+<h3 id="5-create-ingress">5 Create Ingress</h3>
+<p>Create a nginx Ingress:</p>
+<ul>
+<li>Name: ping</li>
+<li>Namespace: ing-internal</li>
+<li>Use port <em>5678</em> and path <em>/hello</em> to expose service <em>hello</em>.</li>
+</ul>
+<p>Can use this command to check the availability of service <em>hello</em>: <code>curl -kL &lt;INTERNAL_IP&gt;/hello</code></p>
+<h3 id="6-get-pod-using-highest-cpu">6 Get Pod Using Highest CPU</h3>
+<p>Find the running pods using much CPU resources by the pod label <em>name=cpu-loader</em>.</p>
+<p>Write the name of the pod using highest CPU to file <em>/opt/KUTR000401/KUTR00401.txt</em> (existed).</p>
+<h3 id="7-schedule-pod-to-specified-node">7 Schedule Pod to Specified Node</h3>
+<p>Schedule the pod:</p>
+<ul>
+<li>Name: nginx-kusc00401</li>
+<li>Image: nginx</li>
+<li>Node selector: disk=ssd</li>
+</ul>
+<h3 id="8-check-available-nodes">8 Check Available Nodes</h3>
+<p>Check how many nodes is Ready (except the nodes with <em>Taint:NoSchedule</em>).</p>
+<p>Write the number of ready nodes to <em>/opt/KUSC00402/kusc00402.txt</em>.</p>
+<h3 id="9-create-pod-with-multiple-container">9 Create Pod with Multiple Container</h3>
+<p>Create a pod:</p>
+<ul>
+<li>Name: kucc8</li>
+<li>App containers: 2</li>
+<li>Container name / Image: nginx, memcached</li>
+</ul>
+<h3 id="10-create-pv">10 Create PV</h3>
+<p>Create a persistent volume:</p>
+<ul>
+<li>Name: app-config</li>
+<li>Capacity: 1Gi</li>
+<li>Access mode: ReadWriteMany</li>
+<li>Volume location: hostPath - <em>/srv/app-config</em></li>
+</ul>
+<h3 id="11-create-pvc">11 Create PVC</h3>
+<p>Create a new PersistentVolumeClaim:</p>
+<ul>
+<li>Name: pv-volume</li>
+<li>Storage class: csi-hostpath-sc</li>
+<li>Capacity: 10Mi</li>
+</ul>
+<p>Create a new pod to mount volume:</p>
+<ul>
+<li>Name: web-server</li>
+<li>Image: nginx:1.16</li>
+<li>Mount path: /usr/share/nginx/html</li>
+</ul>
+<p>Configure this pod to have ReadWriteOnce permission on the volume.</p>
+<p>At last, use <code>kubectl edit</code> or <code>kubectl patch</code> to extend the capacity of PVC to 70Mi, and record this change.</p>
+<h3 id="12-view-pod-logs">12 View Pod Logs</h3>
+<p>Monitor log of pod <em>foo</em> and:</p>
+<ul>
+<li>Extract the log corresponding to error <em>RLIMIT_NOFILE</em></li>
+<li>Write these log to <em>/opt/KUTR00101/foo</em></li>
+</ul>
+<h3 id="13-use-sidecar-to-proxy-container-logs">13 Use Sidecar to Proxy Container Logs</h3>
+<p>Use busybox image to add a sidecar container named <em>sidecar</em> to the existing pod <em>11-factor-app</em>.</p>
+<p>The new sidecar container should run the following command: <code>/bin/sh -c tail -n+1 -f /var/log/11-factor-app.log</code>.</p>
+<p>Use a Volume mounted at <em>/var/log</em> to make the log file <em>11-factor-app.log</em> available to the sidecar container.</p>
+<p>Do not modify the specifications of existing containers other than adding the required volume mount.</p>
+<h3 id="14-upgrade-cluster">14 Upgrade Cluster</h3>
+<p>The existing Kubernetes cluster is running version 1.29.0. <strong>Only</strong> upgrade all Kubernetes control plane and node components on the <strong>master node</strong> to version 1.29.1.</p>
+<p>Ensure to drain the master node before the upgrade and uncordon it after the upgrade.</p>
+<p>You can use the following command to SSH into the master node: <code>ssh master01</code></p>
+<p>You can use the following command to obtain higher privileges on this master node: <code>sudo -i</code></p>
+<p>Additionally, upgrade kubelet and kubectl on the master node. Please do not upgrade worker nodes, etcd, container manager, CNI plugins, DNS service, or any other plugins.</p>
+<h3 id="15-backup-and-restore-etcd">15 Backup and restore etcd</h3>
+<p>You must execute the required <code>etcdctl</code> command from the host <em>master01</em>.</p>
+<p>First, create a snapshot of the existing etcd instance running on https://127.0.0.1:2379 and save the snapshot to <em>/var/lib/backup/etcd-snapshot.db</em>.</p>
+<p>The following TLS certificate and key are provided to connect to the server via <code>etcdctl</code>:</p>
+<ul>
+<li>CA certificate: /opt/KUIN00601/ca.crt</li>
+<li>Client certificate: /opt/KUIN00601/etcd-client.crt</li>
+<li>Client key: /opt/KUIN00601/etcd-client.key</li>
+</ul>
+<p>Creating a snapshot for the given instance is expected to complete within a few seconds. If the operation seems to hang, there might be an issue with the command. Use CTRL + C to cancel the operation and then retry.</p>
+<p>Then, restore from the previous backup snapshot located at <em>/data/backup/etcd-snapshot-previous.db</em>.</p>
+<h3 id="16-troubleshoot-faulty-node">16 Troubleshoot Faulty Node</h3>
+<p>The Kubernetes worker node <em>node02</em> is in NotReady.</p>
+<p>Investigate why this is happening and take action to return this node to the Ready state, ensuring that the changes are permanent.</p>
+<h3 id="17-node-maintenance">17 Node Maintenance</h3>
+<p>Make the node <em>node02</em> unavailable and reschedule all pods running on this node.</p>
+<h2 id="tips">Tips</h2>
+<ul>
+<li>
+<p>Use <code>alias</code> to simplify the command line</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-sh" data-lang="sh"><span style="display:flex;"><span>alias kc<span style="color:#f92672">=</span><span style="color:#e6db74">&#39;kubectl&#39;</span>
+</span></span></code></pre></div></li>
+<li>
+<p>Use <code>:set paste</code> before edit yaml file to guarantee format</p>
+</li>
+</ul>
+<h2 id="timeline">Timeline</h2>
+<p>Buy: Cyber Monday 2023 - about 1800 Chinese yuan for CKA and CKS</p>
+<p>Prepare: 2024.1-2024.2</p>
+<p>Exam: 2024.3.9 1:00 AM</p>
 
         </div>
 
@@ -468,7 +518,7 @@
   <p class="copyright-item">
     <span class="item-title">LastMod</span>
     <span class="item-content">
-      2023-12-16
+      2024-03-13
       
     </span>
   </p>
@@ -488,6 +538,7 @@
         <footer class="post-footer">
           <div class="post-tags">
               <a href="https://zyt153.github.io/tags/k8s/">k8s</a>
+                <a href="https://zyt153.github.io/tags/cka/">cka</a>
                 
             </div>
 
@@ -495,22 +546,9 @@
           
           <nav class="post-nav">
             
-              <a class="prev" href="/post/golang_get_cert_manager_issuer/">
-                
-                <i class="iconfont">
-                  <svg  class="icon" viewBox="0 0 1024 1024" version="1.1"
-  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="18" height="18">
-  <path d="M691.908486 949.511495l75.369571-89.491197c10.963703-12.998035 10.285251-32.864502-1.499144-44.378743L479.499795 515.267417 757.434875 204.940602c11.338233-12.190647 11.035334-32.285311-0.638543-44.850487l-80.46666-86.564541c-11.680017-12.583596-30.356378-12.893658-41.662889-0.716314L257.233596 494.235404c-11.332093 12.183484-11.041474 32.266891 0.657986 44.844348l80.46666 86.564541c1.772366 1.910513 3.706415 3.533476 5.750981 4.877077l306.620399 321.703933C662.505829 963.726242 680.945807 962.528973 691.908486 949.511495z"></path>
-</svg>
-
-                </i>
-                <span class="prev-text nav-default">golang - 获取cluster中的issuer</span>
-                <span class="prev-text nav-mobile">Prev</span>
-              </a>
             
-              <a class="next" href="/post/pod_always_pending/">
-                <span class="next-text nav-default">K8s - Solve pod is always pending</span>
+              <a class="next" href="/post/killer_practice/">
+                <span class="next-text nav-default">Killer - CKA Simulator Kubernetes 1.29</span>
                 <span class="prev-text nav-mobile">Next</span>
                 
                 <i class="iconfont">
@@ -581,10 +619,37 @@
     <div class="toc-content custom-scrollbar">
       <nav id="TableOfContents">
   <ul>
-    <li><a href="#env">Env</a></li>
-    <li><a href="#statement">Statement</a></li>
-    <li><a href="#solution">Solution</a></li>
-    <li><a href="#reference">Reference</a></li>
+    <li><a href="#official-website">Official Website</a></li>
+    <li><a href="#prepare">Prepare</a>
+      <ul>
+        <li><a href="#resources-in-github">Resources in Github</a></li>
+        <li><a href="#online-practice">Online Practice</a></li>
+        <li><a href="#related-blogs-in-chinese">Related Blogs (In Chinese)</a></li>
+      </ul>
+    </li>
+    <li><a href="#practice">Practice</a>
+      <ul>
+        <li><a href="#1-rbac">1 RBAC</a></li>
+        <li><a href="#2-scale-deployment">2 Scale Deployment</a></li>
+        <li><a href="#3-networkpolicy">3 NetworkPolicy</a></li>
+        <li><a href="#4-expose-service">4 Expose Service</a></li>
+        <li><a href="#5-create-ingress">5 Create Ingress</a></li>
+        <li><a href="#6-get-pod-using-highest-cpu">6 Get Pod Using Highest CPU</a></li>
+        <li><a href="#7-schedule-pod-to-specified-node">7 Schedule Pod to Specified Node</a></li>
+        <li><a href="#8-check-available-nodes">8 Check Available Nodes</a></li>
+        <li><a href="#9-create-pod-with-multiple-container">9 Create Pod with Multiple Container</a></li>
+        <li><a href="#10-create-pv">10 Create PV</a></li>
+        <li><a href="#11-create-pvc">11 Create PVC</a></li>
+        <li><a href="#12-view-pod-logs">12 View Pod Logs</a></li>
+        <li><a href="#13-use-sidecar-to-proxy-container-logs">13 Use Sidecar to Proxy Container Logs</a></li>
+        <li><a href="#14-upgrade-cluster">14 Upgrade Cluster</a></li>
+        <li><a href="#15-backup-and-restore-etcd">15 Backup and restore etcd</a></li>
+        <li><a href="#16-troubleshoot-faulty-node">16 Troubleshoot Faulty Node</a></li>
+        <li><a href="#17-node-maintenance">17 Node Maintenance</a></li>
+      </ul>
+    </li>
+    <li><a href="#tips">Tips</a></li>
+    <li><a href="#timeline">Timeline</a></li>
   </ul>
 </nav>
     </div>

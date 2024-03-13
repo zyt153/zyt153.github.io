@@ -6,7 +6,25 @@
     <description>Recent content in cka on Big Wilte Cat&#39;s Home</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Mon, 22 Jan 2024 13:03:01 +0800</lastBuildDate><atom:link href="https://zyt153.github.io/tags/cka/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 13 Mar 2024 17:45:35 +0800</lastBuildDate><atom:link href="https://zyt153.github.io/tags/cka/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Preparation for CKA</title>
+      <link>https://zyt153.github.io/post/cka-preparation/</link>
+      <pubDate>Wed, 13 Mar 2024 17:45:35 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/cka-preparation/</guid>
+      <description>Official Website K8s doc Training portal Prepare Resources in Github Kubernetes Certified Administration - Some exercises based on exam objectives. Has some useful tips and links. K8s Practice Training - A basic k8s exercise. Awesome Kubernetes - Introduction and blogs about k8s. Online Practice https://killercoda.com/killer-shell-cka - Free https://killer.sh - two sessions, 36h free for each Related Blogs (In Chinese) CKA 考試全攻略流程 Kubernetes CKA 证</description>
+    </item>
+    
+    <item>
+      <title>Killer - CKA Simulator Kubernetes 1.29</title>
+      <link>https://zyt153.github.io/post/killer_practice/</link>
+      <pubDate>Wed, 06 Mar 2024 10:32:36 +0800</pubDate>
+      
+      <guid>https://zyt153.github.io/post/killer_practice/</guid>
+      <description>From: https://killer.sh Most of this page is direct copy, and I just added My Answer or Ref. Pre Setup Once you&amp;rsquo;ve gained access to your terminal it might be wise to spend ~1 minute to setup your environment. You could set these: alias k=kubectl # will already be pre-configured export do=&amp;#34;--dry-run=client -o yaml&amp;#34; # k create deploy nginx --image=nginx $do export now=&amp;#34;--force --grace-period 0&amp;#34; # k delete pod x $now</description>
+    </item>
+    
     <item>
       <title>k8s学习笔记-黑马</title>
       <link>https://zyt153.github.io/post/note_k8s_heima/</link>
@@ -14,15 +32,6 @@
       
       <guid>https://zyt153.github.io/post/note_k8s_heima/</guid>
       <description>为了准备CKA看了b站上黑马程序员的k8s课程，总体来说比较基础，也有一些过时的内容，但优点在于简单、全面、清晰。参考评论区的笔记记录一下。</description>
-    </item>
-    
-    <item>
-      <title>Mark for CKA</title>
-      <link>https://zyt153.github.io/post/mark_for_cka/</link>
-      <pubDate>Sat, 16 Dec 2023 20:45:35 +0800</pubDate>
-      
-      <guid>https://zyt153.github.io/post/mark_for_cka/</guid>
-      <description>Official Website Training portal Practice in Github CKA Practice Exercises Kubernetes Certified Administration K8s Practice Training Awesome Kubernetes Some Blogs CKA 考試全攻略流程 Kubernetes CKA 证书备考笔记</description>
     </item>
     
   </channel>

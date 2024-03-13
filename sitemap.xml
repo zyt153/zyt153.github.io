@@ -10,35 +10,63 @@
   
   <url>
     <loc>https://zyt153.github.io/</loc>
-    <lastmod>2024-01-22T13:03:01+08:00</lastmod>
+    <lastmod>2024-03-13T17:45:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/categories/</loc>
-    <lastmod>2024-01-22T13:03:01+08:00</lastmod>
+    <lastmod>2024-03-13T17:45:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/tags/cka/</loc>
-    <lastmod>2024-01-22T13:03:01+08:00</lastmod>
+    <lastmod>2024-03-13T17:45:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/tags/k8s/</loc>
-    <lastmod>2024-01-22T13:03:01+08:00</lastmod>
+    <lastmod>2024-03-13T17:45:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
   
   <url>
     <loc>https://zyt153.github.io/categories/k8s/</loc>
-    <lastmod>2024-01-22T13:03:01+08:00</lastmod>
+    <lastmod>2024-03-13T17:45:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zyt153.github.io/post/</loc>
+    <lastmod>2024-03-13T17:45:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zyt153.github.io/post/cka-preparation/</loc>
+    <lastmod>2024-03-13T17:45:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zyt153.github.io/tags/</loc>
+    <lastmod>2024-03-13T17:45:35+08:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  
+  <url>
+    <loc>https://zyt153.github.io/post/killer_practice/</loc>
+    <lastmod>2024-03-06T10:32:36+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -51,21 +79,7 @@
   </url>
   
   <url>
-    <loc>https://zyt153.github.io/post/</loc>
-    <lastmod>2024-01-22T13:03:01+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
     <loc>https://zyt153.github.io/tags/study/</loc>
-    <lastmod>2024-01-22T13:03:01+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zyt153.github.io/tags/</loc>
     <lastmod>2024-01-22T13:03:01+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
@@ -95,20 +109,6 @@
   <url>
     <loc>https://zyt153.github.io/post/cert_in_kind_cluster/</loc>
     <lastmod>2023-12-16T20:57:56+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zyt153.github.io/categories/cka/</loc>
-    <lastmod>2023-12-16T20:45:35+08:00</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  
-  <url>
-    <loc>https://zyt153.github.io/post/mark_for_cka/</loc>
-    <lastmod>2023-12-16T20:45:35+08:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.5</priority>
   </url>
